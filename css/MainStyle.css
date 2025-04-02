@@ -1,0 +1,458 @@
+/* 基础样式：定义整个页面的通用样式，例如字体、背景颜色等 */
+body {
+    font-family: Arial, sans-serif; /* 使用 Arial 字体作为页面的默认字体，sans-serif 作为备用 */
+    margin: 0; /* 移除页面的默认外边距 */
+    padding: 0; /* 移除页面的默认内边距 */
+    background-color: #f9f9f9; /* 设置页面背景颜色为浅灰色 */
+    color: #222; /* 设置文本颜色为深灰色 */
+}
+
+/* 头部样式：定义页面顶部的 header 样式 */
+header {
+    background-color: #333; /* 背景颜色为深灰色 */
+    color: #945a5a; /* 文本颜色为浅棕色 */
+    padding: 10px 0; /* 上下内边距为 10 像素，左右保持为 0 */
+    text-align: center; /* 文本居中对齐 */
+    position: sticky; /* 保持头部在页面滚动时固定在顶部 */
+    top: 0; /* 固定在页面顶部 */
+    z-index: 1000; /* 设置较高的层级确保头部在其他元素之上 */
+    transition: background-color 0.3s ease; /* 当头部样式变化时，添加背景颜色的过渡效果 */
+}
+
+
+
+/* 导航栏样式 */
+nav ul {
+    list-style-type: none; /* 移除默认的列表样式符号 */
+    padding: 0; /* 移除默认的内边距 */
+    margin: 10px 0; /* 设置上下外边距为 10px */
+}
+
+/* 导航列表项样式 */
+nav ul li {
+    display: inline-block; /* 将列表项设置为水平排列 */
+    margin: 0 20px; /* 列表项之间左右各留 20px 的空隙 */
+    position: relative; /* 相对定位，便于子菜单（下拉菜单）的定位 */
+}
+
+/* 导航链接样式 */
+nav ul li a {
+    color: #fff; /* 链接颜色为白色 */
+    text-decoration: none; /* 移除默认的下划线样式 */
+    font-size: 18px; /* 链接字体大小为 18px */
+}
+
+/* 当鼠标悬停在导航链接上时显示下划线 */
+nav ul li a:hover {
+    text-decoration: underline;
+}
+
+/* 下拉菜单样式 */
+.dropdown-content {
+    display: none; /* 默认隐藏下拉菜单 */
+    position: absolute; /* 绝对定位下拉菜单，相对于父元素 */
+    background-color: #333; /* 背景颜色与导航一致 */
+    margin-top: 10px; /* 设置下拉菜单距离导航项 10px */
+    min-width: 160px; /* 下拉菜单的最小宽度为 160px */
+    box-shadow: 0px 8px 16px rgba(0, 0, 0, 0.2); /* 添加阴影效果，使下拉菜单更立体 */
+    z-index: 1; /* 设置较高的层级，确保下拉菜单浮在其他元素之上 */
+    top: 100%; /* 将下拉菜单定位到父元素下方 */
+    left: 0; /* 对齐左边 */
+}
+
+/* 当显示下拉菜单时，使用 .show 类 */
+.dropdown-content.show {
+    display: block;
+}
+
+/* 下拉菜单列表项样式 */
+.dropdown-content li {
+    display: block; /* 列表项垂直排列 */
+}
+
+/* 下拉菜单链接样式 */
+.dropdown-content li a {
+    color: #fff; /* 链接颜色为白色 */
+    padding: 12px 16px; /* 设置内边距 */
+    text-decoration: none; /* 移除下划线 */
+    display: block; /* 链接占满整个行 */
+    font-size: 16px; /* 链接字体大小为 16px */
+}
+
+/* 鼠标悬停时，改变下拉菜单项的背景颜色 */
+.dropdown-content li a:hover {
+    background-color: #575757;
+}
+
+/* 布局样式：定义主内容区和布局 */
+.main-content {
+    display: flex; /* 使用 flex 布局 */
+    justify-content: space-between; /* 主内容和侧边栏之间的空隙 */
+    padding: 20px; /* 设置内边距 */
+    max-width: 1600px; /* 限制内容区最大宽度为 1200px */
+    margin: 0 auto; /* 内容居中对齐 */
+}
+
+/* 调整文章标签的位置 */
+.article-tags {
+    margin-top: 15px; /* 减少标题和标签之间的距离 */
+    margin-bottom: 15px; /* 标签与正文内容之间保持适度距离 */
+    font-size: 14px; /* 标签字体稍微小一些，和标题区分开来 */
+    color: #666; /* 标签颜色为浅灰色 */
+    display: flex; /* 使用 flex 布局让标签水平排列 */
+    gap: 10px; /* 标签之间保持 10px 的间距 */
+    align-items: center; /* 标签与文本基线对齐 */
+}   
+
+/* 鼠标悬停时的效果 */
+.article-tags a:hover {
+    background-color: #0056b3; /* 鼠标悬停时变为深蓝色 */
+    color: #fff; /* 标签文字颜色为白色 */
+    text-decoration: none; /* 移除下划线 */
+}
+
+
+/* 文章内容样式 */
+.article-content {
+    width: 53%; /* 文章内容区宽度占布局的 65% */
+    padding: 20px; /* 内边距为 20px */
+    background-color: #fff; /* 背景颜色为白色 */
+    border-radius: 8px; /* 设置圆角 */
+    box-shadow: 0 0 15px rgba(0, 0, 0, 0.1); /* 添加阴影效果 */
+}
+
+/* 文章内容区标题样式 */
+.article-content h1 {
+    border-bottom: 2px solid #ddd; /* 添加浅灰色下边框 */
+    padding-bottom: 5px; /* 设置标题与下边框之间的距离 */
+    margin-top: 10px;
+    margin-bottom: 0px; /* 设置标题与下方内容的距离 */
+    font-size: 32px; /* 设置标题字体大小 */
+    color: #333; /* 设置标题颜色 */
+}
+
+.article-content h2 {
+    border-bottom: 2px solid #ddd; /* 添加浅灰色下边框 */
+    padding-bottom: 4px; /* 设置标题与下边框之间的距离 */
+    margin-bottom: 20px; /* 设置标题与下方内容的距离 */
+    font-size: 28px; /* 设置标题字体大小 */
+    color: #333; /* 设置标题颜色 */
+}
+.article-content h3 {
+    padding-left: 2ch; /* 整体缩进两个字符 */
+    padding-bottom: 4px; /* 设置标题与下边框之间的距离 */
+    margin-bottom: 20px; /* 设置标题与下方内容的距离 */
+    font-size: 20px; /* 设置标题字体大小 */
+    color: #333; /* 设置标题颜色 */
+}
+
+/* 基本链接样式 */
+a {
+    color: #0645ad; /* 蓝色 */
+    text-decoration: none; /* 无下划线 */
+    font-weight: bold; /* 加粗 */
+}
+
+/* Meta 信息容器（标签和日期） */
+.meta-info {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-top: 0px;
+    margin-bottom: 10px;
+}
+
+/* 作用在 <p> 标签上的整体缩进和上下空隙 */
+.article-content p {
+    padding-left: 2ch; /* 整体缩进两个字符 */
+    padding-right: 2ch; /* 整体缩进两个字符 */
+    line-height: 24px;
+    margin-top: 1em; /* 上方留出小空隙 */
+    margin-bottom: 1em; /* 下方留出小空隙 */
+}
+
+/* 为 <span class="points"> 添加额外样式 */
+.points {
+    padding-left: 2ch; /* 整体缩进两个字符 */
+    display: inline-block; /* 使 span 保持为行内块级元素 */
+    margin-top: 0.1em; /* 给 span 上方留空隙 */
+    margin-bottom: 0.1em; /* 给 span 下方留空隙 */
+}
+
+
+/* 文章标签 */
+.article-tags a {
+    background-color: #007bff; /* 设置标签背景颜色为蓝色 */
+    color: #fff; /* 设置标签文字颜色为白色 */
+    padding: 5px 10px; /* 设置标签内边距 */
+    border-radius: 4px; /* 设置圆角 */
+    font-size: 14px; /* 设置标签文字大小 */
+    text-decoration: none; /* 移除下划线 */
+}
+
+.article-tags a:hover {
+    background-color: #0056b3;
+    text-decoration: underline;
+}
+
+/* 发布日期 */
+.publish-date {
+    font-size: 16px;
+    color: #666;
+}
+
+.back-button {
+    display: inline-block;
+    background-color: #007bff; /* 背景颜色为蓝色 */
+    color: #fff; /* 字体颜色为白色 */
+    padding: 5px 5px; /* 内边距 */
+    border-radius: 5px; /* 设置圆角 */
+    text-decoration: none; /* 移除下划线 */
+    font-size: 14px; /* 字体大小 */
+    margin-top: 20px; /* 顶部外边距 */
+    transition: background-color 0.5s ease; /* 鼠标悬停时的过渡效果 */
+}
+
+.back-button:hover {
+    background-color: #0056b3; /* 鼠标悬停时背景颜色变深 */
+    text-decoration: underline; /* 鼠标悬停时显示下划线 */
+}
+
+/* 左侧边栏样式 */
+.left-sidebar {
+    width: 20%; /* 左侧边栏宽度设置为 20% */
+    display: flex; /* 使用 flex 布局 */
+    flex-direction: column; /* 垂直排列侧边栏内的模块 */
+    gap: 20px; /* 模块之间的间距为 20px */
+}
+
+/* 侧边栏样式 */
+.right-sidebar {
+    width: 20%; /* 侧边栏宽度占布局的 30% */
+    display: flex; /* 使用 flex 布局 */
+    flex-direction: column; /* 垂直排列侧边栏内的模块 */
+    gap: 20px; /* 模块之间的间距为 20px */
+}
+
+/* Search 模块样式 */
+.search-container {
+    background-color: #fff; /* 背景颜色为白色 */
+    margin-bottom: 20px; /* 设置搜索模块与下方内容的距离 */
+    padding: 20px; /* 内边距为 20px */
+    border-radius: 8px; /* 设置圆角 */
+    box-shadow: 0 0 15px rgba(0, 0, 0, 0.1); /* 添加阴影效果 */
+}
+
+/* Search 模块标题样式 */
+.search-container h3 {
+    font-size: 18px; /* 设置标题字体大小 */
+    margin-top: 0px; /* 设置标题与顶部的距离为 0 */
+    margin-bottom: 10px; /* 设置标题与下方内容的距离 */
+    color: #333; /* 标题颜色为深灰色 */
+}
+
+/* 搜索输入框样式 */
+.search input[type="text"] {
+    width: 70%; /* 输入框占据模块宽度的 70% */
+    padding: 10px; /* 内边距为 10px */
+    border: 1px solid #ccc; /* 边框颜色为浅灰色 */
+    border-radius: 25px 0 0 25px; /* 左侧设置圆角 */
+    font-size: 16px; /* 设置字体大小 */
+    box-sizing: border-box; /* 确保内外边距都计算在元素宽度内 */
+    outline: none; /* 移除输入框的聚焦样式 */
+}
+
+/* 搜索按钮样式 */
+.search button {
+    width: 25%; /* 按钮宽度占搜索框的 25% */
+    padding: 10px; /* 内边距为 10px */
+    background-color: #007bff; /* 按钮背景颜色为蓝色 */
+    color: #fff; /* 按钮文字颜色为白色 */
+    border: none; /* 移除按钮边框 */
+    border-radius: 0 25px 25px 0; /* 设置右侧圆角 */
+    cursor: pointer; /* 鼠标悬停时显示指针 */
+    font-size: 16px; /* 按钮字体大小 */
+}
+
+/* 鼠标悬停时，按钮背景颜色变为深蓝色 */
+.search button:hover {
+    background-color: #0056b3;
+}
+
+/* Tags 模块样式 */
+.tags {
+    background-color: #fff; /* 背景颜色为白色 */
+    margin-bottom: 20px; /* 设置 Tags 模块与下方内容的距离 */
+    padding: 20px; /* 内边距为 20px */
+    border-radius: 8px; /* 设置圆角 */
+    box-shadow: 0 0 15px rgba(0, 0, 0, 0.1); /* 添加阴影效果 */
+}
+
+/* Tags 模块标题样式 */
+.tags h3 {
+    font-size: 18px; /* 设置标题字体大小 */
+    margin-top: 0px; /* 设置标题与顶部的距离为 0 */
+    margin-bottom: 10px; /* 设置标题与下方内容的距离 */
+    color: #333; /* 标题颜色为深灰色 */
+}
+
+/* Tags 列表样式 */
+.tags ul {
+    display: flex; /* 使用 flex 布局 */
+    flex-wrap: wrap; /* 标签自动换行 */
+    gap: 10px; /* 标签之间的间距为 10px */
+    list-style-type: none; /* 移除列表符号 */
+    padding: 0; /* 移除内边距 */
+}
+
+/* 单个标签样式 */
+.tags ul li {
+    display: inline; /* 将标签列表项显示为行内元素 */
+}
+
+/* 标签链接样式 */
+.tags ul li a {
+    background-color: #007bff; /* 设置标签背景颜色为蓝色 */
+    color: #fff; /* 设置标签文字颜色为白色 */
+    padding: 5px 10px; /* 设置标签内边距 */
+    border-radius: 4px; /* 设置圆角 */
+    font-size: 14px; /* 设置标签文字大小 */
+    text-decoration: none; /* 移除下划线 */
+}
+
+/* 鼠标悬停时，标签背景颜色变为深蓝色 */
+.tags ul li a:hover {
+    background-color: #0056b3;
+}
+
+/* Categories 模块样式 */
+.categories {
+    background-color: #fff; /* 背景颜色为白色 */
+    padding: 20px; /* 内边距为 20px */
+    border-radius: 8px; /* 设置圆角 */
+    box-shadow: 0 0 15px rgba(0, 0, 0, 0.1); /* 添加阴影效果 */
+}
+
+/* Categories 模块标题样式 */
+.categories h3 {
+    font-size: 18px; /* 设置标题字体大小 */
+    margin-top: 0px; /* 设置标题与顶部的距离为 0 */
+    margin-bottom: 10px; /* 设置标题与下方内容的距离 */
+    color: #333; /* 标题颜色为深灰色 */
+}
+
+/* Categories 列表样式 */
+.categories ul {
+    list-style-type: none; /* 移除列表符号 */
+    padding: 0; /* 移除内边距 */
+}
+
+/* Categories 列表项样式 */
+.categories ul li {
+    margin-bottom: 10px; /* 设置列表项之间的距离 */
+}
+
+/* Categories 链接样式 */
+.categories ul li a {
+    text-decoration: none; /* 移除下划线 */
+    color: #007bff; /* 链接颜色为蓝色 */
+    font-size: 18px; /* 设置链接字体大小 */
+}
+
+/* 鼠标悬停时，链接显示下划线 */
+.categories ul li a:hover {
+    text-decoration: underline;
+}
+
+.comment-box {
+    color: #666; /* 灰色字体 */
+    background-color: #f9f9f9; /* 浅灰色背景 */
+    border-left: 4px solid #ccc; /* 左侧灰色竖杠 */
+    padding: 10px 15px; /* 适当的内边距 */
+    margin: 10px 0; /* 上下留白 */
+    font-style: italic; /* 斜体以增强“注释”感 */
+    line-height: 1.5; /* 行间距优化 */
+}
+
+
+/* 表格样式 */
+table {
+    width: 80%; /* 让表格宽度占据 80%（可调整） */
+    max-width: 1200px; /* 设置表格最大宽度，避免太大 */
+    border-collapse: collapse; /* 合并边框 */
+    background-color: #fff; /* 表格背景色 */
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1); /* 添加阴影 */
+}
+
+/* 表头 */
+thead {
+    background-color: #333;
+    color: #fff;
+}
+
+/* 表头单元格 */
+th, td {
+    padding: 12px;
+    border: 1px solid #ddd;
+    text-align: center; /* 让表格内文本居中 */
+}
+
+/* 隔行变色 */
+tr:nth-child(even) {
+    background-color: #f2f2f2;
+}
+
+/* 鼠标悬停行高亮 */
+tr:hover {
+    background-color: #ddd;
+}
+
+
+
+/* 页脚样式 */
+footer {
+    text-align: center; /* 页脚内容居中 */
+    padding: 20px; /* 设置内边距为 20px */
+    background-color: #333; /* 页脚背景颜色为深灰色 */
+    color: #fff; /* 页脚文字颜色为白色 */
+}
+
+/* 新增标签折叠样式 */
+.tags-header {
+    cursor: pointer;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+/* 调整侧边栏容器样式 */
+.sidebar {
+    width: 30%; /* 保持30%宽度 */
+    min-width: 300px; /* 新增最小宽度限制 */
+    max-width: 400px; /* 新增最大宽度限制 */
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+
+/* 修复标签容器溢出问题 */
+.tags-list {
+    max-height: 200px;
+    overflow-y: auto;
+    transition: max-height 0.3s ease;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+    max-width: 100%; /* 新增限制 */
+}
+
+.tags-list.collapsed {
+    max-height: 40px;
+    overflow: hidden;
+}
+
+.toggle-tags {
+    font-size: 0.8em;
+    color: #007bff;
+    margin-left: 10px;
+}

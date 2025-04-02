@@ -1,0 +1,157 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>GalaxyCode_general</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/default.min.css">
+    <link rel="stylesheet" href="../../css/MainStyle.css">
+    <link rel="stylesheet" href="../../css/article-list.css">
+    <link rel="stylesheet" href="../../css/article-navigation.css">
+    <link rel="stylesheet" href="../../css/codeBlock.css">
+</head>
+<body>
+    <!-- Header Section -->
+    <header>
+        <nav>
+            <ul>
+                <li><a href="../../index.html">Home</a></li>
+                <li><a href="../../AboutMe/aboutme.html">About Me</a></li>
+                <li class="dropdown">
+                    <a href="javascript:void(0);" class="dropbtn">Articles</a>
+                    <ul class="dropdown-content">
+                        <li><a href="../Astronomy/_AstronomyMenu.html">Astronomy</a></li>
+                        <li><a href="../Physics/_PhysicsMenu.html">Physics</a></li>
+                        <li><a href="../Explorations/_ExplorationsMenu.html">Explorations</a></li>
+                    </ul>
+                </li>
+                <li><a href="../../contact.html">Contact Me</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <div class="main-content">
+        <!-- 左侧边栏 -->
+        <aside class="left-sidebar">
+            <!-- Articles Navigation 模块 -->
+            <div class="article-navigation">
+                <div class="toggleArea">☰ Menu</div>
+                <ul id="toc">
+                    <!-- 目录将在这里生成 -->
+                </ul>
+            </div>
+        </aside>
+        <article class="article-content">
+            <h1>Write your own code for galaxy spectral analysis</h1>
+            <div class="meta-info">
+                <div class="article-tags">
+                    <a href="#">Code</a>
+                    <a href="#">Science</a>
+                </div>
+                <div class="publish-date">2024-10-11 19:38:16</div>
+            </div>
+            <p>
+                In this article, I will introduce the basic steps of how to write your own code for galaxy spectral analysis.
+            </p>
+            <h2>
+                Stellar Population Synthesis
+            </h2>
+            <h3>
+                What does the spectrum of a galaxy contain?
+            </h3>
+            <p>
+                The spectrum of a galaxy can be divided into several different parts, represented by the following equation:
+            </p>
+            <p>
+                \[
+                F_{obs}(\lambda) = \sum_i \left[ w_i e^{-\tau\left(\frac{\lambda}{1+z}\right)}S_i\left(\frac{\lambda}{1+z}\right) \right] + F_{\text{emission}}\left(\frac{\lambda}{1+z}\right) + F_{\text{AGN}}\left(\frac{\lambda}{1+z}\right)
+                \]
+            </p>
+            <p>
+                In this equation:
+            </p>
+            <ul>
+                <li>\( F_{obs}(\lambda) \) represents the observed flux of the galaxy as a function of wavelength \( \lambda \).</li>
+                <li>\( S_i\left(\frac{\lambda}{1+z}\right) \) denotes the intrinsic spectrum of individual stellar populations, adjusted for the redshift \( z \) of the galaxy. The index \( i \) sums over different stellar population components.</li>
+                <li>\( w_i \) are the <strong>weight factors</strong> representing the relative contributions of each stellar population component to the total spectrum.</li>
+                <li>\( e^{-\tau\left(\frac{\lambda}{1+z}\right)} \) accounts for the effects of dust extinction, where \( \tau \) is the <strong>optical depth</strong> as a function of wavelength, also corrected for redshift.</li>
+                <li>\( F_{\text{emission}}\left(\frac{\lambda}{1+z}\right) \) represents the contribution from emission lines, which may originate from ionized gas within the galaxy, such as HII regions or supernova remnants.</li>
+                <li>\( F_{\text{AGN}}\left(\frac{\lambda}{1+z}\right) \) is the component representing non-stellar radiation from an active galactic nucleus, if present.</li>
+            </ul>
+            <p>
+                The observed spectrum, \( F_{obs}(\lambda) \), thus consists of the combination of stellar light, dust extinction effects, emission lines, and possible AGN contributions, all appropriately adjusted for the galaxy's redshift. By fitting this model to observed data, we can infer the physical properties of the galaxy, such as its stellar population age distribution, metallicity, dust content, and the presence of AGN activity.
+            </p>
+            <h3>
+                First code for galaxy spectral analysis
+            </h3>
+            <p>
+                How to write your own code for galaxy spectral analysis? Here we can start with a simple version that only <strong>considers continuous emission and emission lines</strong>.
+            </p>
+            <pre>
+                <code class="python">
+                    import numpy as np
+                    import matplotlib.pyplot as plt
+
+                    # Define the wavelength range and redshift
+                    wave = np.arange(3000, 10000, 1)
+                    z = 0.5
+
+                    # Define the intrinsic spectrum of a single stellar population
+                    S_i = 1000 * np.exp(-(wave - 5500) ** 2 / (2 * 50 ** 2))
+
+                    # Define the weight factor for the single stellar population
+                    w_i = 1
+
+                    # Define the optical depth as a function of wavelength
+                </code>
+            </pre>
+            <p>            
+                <a class="back-button" href="_AstronomyMenu.html">Back to Astronomy Articles</a>
+            </p>
+        </article>
+    <!-- 右侧边栏 -->
+    <aside class="right-sidebar">
+        <!-- Search 模块 -->
+        <div class="search-container">
+          <h3>Search</h3>
+          <div class="search">
+              <form action="#" method="GET">
+                  <input type="text" name="search" placeholder="Search articles..." />
+                  <button type="submit">Search</button>
+              </form>
+          </div>
+      </div>
+        <!-- Tags 模块 -->
+        <div class="tags">
+          <h3 class="tags-header">
+              Tags 
+              <span class="toggle-tags">[展开]</span>
+          </h3>
+          <ul class="tags-list"></ul>
+      </div>
+      <div class="categories">
+        <h3>Articles Categories</h3>
+        <ul>
+          <li><a href="#">Astronomy</a></li>
+          <li><a href="#">Physics</a></li>
+        </ul>
+      </div>
+    </aside>
+  </div>
+  
+  <!-- Footer Section -->
+  <footer>
+    <p>&copy; 2024 Personal Blog. All rights reserved.</p>
+  </footer>
+  
+  <script src="../../js/script.js"></script>
+  <script src="../../js/tags.js"></script>
+  <script src="../../js/search.js"></script>
+  <script src="../../js/article-navigation.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/MathJax.js?config=TeX-AMS_HTML" async></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/highlight.min.js"></script>
+    <script>
+        hljs.highlightAll();
+    </script>
+</body>
+</html>

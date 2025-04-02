@@ -1,0 +1,239 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>AGN 理论和模型</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/default.min.css">
+  <link rel="stylesheet" href="../../css/MainStyle.css">
+  <link rel="stylesheet" href="../../css/article-list.css">
+  <link rel="stylesheet" href="../../css/article-navigation.css">
+  <link rel="stylesheet" href="../../css/codeBlock.css">
+</head>
+<body>
+  <!-- Header Section -->
+  <header>
+    <nav>
+      <ul>
+        <li><a href="../../index.html">Home</a></li>
+        <li><a href="../../AboutMe/aboutme.html">About Me</a></li>
+        <li class="dropdown">
+          <a href="javascript:void(0);" class="dropbtn">Articles</a>
+          <ul class="dropdown-content">
+            <li><a href="../Astronomy/_AstronomyMenu.html">Astronomy</a></li>
+            <li><a href="../Physics/_PhysicsMenu.html">Physics</a></li>
+            <li><a href="../Explorations/_ExplorationsMenu.html">Explorations</a></li>
+          </ul>
+        </li>
+        <li><a href="../../contact.html">Contact Me</a></li>
+      </ul>
+    </nav>
+  </header>
+  
+  <div class="main-content">
+    <!-- 左侧边栏 -->
+    <aside class="left-sidebar">
+      <div class="article-navigation">
+        <div class="toggleArea">☰ Menu</div>
+        <ul id="toc">
+          <!-- 目录将在这里生成 -->
+        </ul>
+      </div>
+    </aside>
+    <article class="article-content">
+      <h1>AGN 理论和模型</h1>
+      <div class="meta-info">
+        <div class="article-tags">
+          <a href="#">AGN</a>
+          <a href="#">Theory</a>
+          <a href="#">Models</a>
+        </div>
+        <div class="publish-date">2024-10-16 17:19:18</div>
+      </div>
+      <p>
+        类星体（QSOs）通常在红外波段呈现显著的“红外凸起”，这一现象被认为主要源自尘埃热辐射以及可能的非热辐射成分。为拟合和解释类星体的红外光谱能量分布（SED），天文学中常采用包括幂律模型和修正黑体（灰体）模型在内的几种理论模型。以下内容详细介绍了各模型的数学表达、参数含义、适用条件，并结合观测实例讨论了它们的应用效果及各自局限性。
+      </p>
+      <h2>类星体的红外辐射特性</h2>
+      <h3>1. 幂律模型 (Power-law Model)</h3>
+      <p>
+        数学形式：幂律模型假定光谱密度呈现为频率（或波长）的幂次关系，其常用表达为
+      </p>
+      <p>
+        \[
+        L_{\nu} \propto \nu^{\alpha} \quad \text{或} \quad F_{\lambda} \propto \lambda^{-\alpha-2}
+        \]
+      </p>
+      <p>
+        其中 \(\alpha\) 为光谱指数，描述红外光谱的坡度。
+      </p>
+      <p>
+        例如，<a href="https://www.aanda.org/articles/aa/pdf/2003/16/aa3053.pdf#:~:text=quiet%20quasars,luminosity%2C%20nor%20with%20the%20FIR%2FMIR" target="_blank">Haas 等人</a>对本地 PG 类星体近–中红外谱段的拟合表明，其光谱指数大致在 \(\alpha \approx -0.9\) 到 \(-2.2\)（平均约 \(-1.3\)），即 \(F_{\nu} \propto \nu^{-1.3}\)，表明在红外波段能量随频率降低。
+      </p>
+      <p>
+        <strong>物理含义与参数解释</strong>：幂律模型本质上是经验性的连续谱描述。参数 \(\alpha\) 反映了辐射机制或多温尘埃分布的综合效应。
+      </p>
+      <p><span class="points">
+        \(\alpha\) 较陡（例如 \(\sim-2\) ），通常意味着红外光谱在峰值后迅速衰减，这可能对应热尘埃辐射在瑞利-金斯尾部的行为;
+      </p>
+      <p><span class="points">
+        \(\alpha\) 较平（如 \(-0.5 \sim -1\)）则暗示宽温度分布尘埃热辐射或非热（如同步辐射）贡献。
+      </p>
+      <p>
+        <strong>适用情形</strong>：幂律模型常用于拟合那些缺乏明显峰值的红外连续谱，典型应用包括：
+      </p>
+      <p><span class="points">
+        射电类星体（射电响度高）：这类类星体的红外辐射常有显著的非热分量（同步加速辐射）。其射电到红外的连续谱可近似为单一幂律（例如3C273等射电喧嚣源在红外-毫米波表现为同步辐射光谱）。观测上，射电类星体在红外的谱形常被认为由喷流非热辐射主导，可用幂律描述。
+      </p>
+      <p><span class="points">
+        近-中红外段的AGN尘埃连续谱： 对于射电安静的类星体，红外辐射主要来自尘埃被AGN加热后的热辐射。但由于尘埃温度并非单一值，而是连续分布（从中心的几千K热尘埃到外围的几十K冷尘埃），叠加后在 \(2–40\mu m\) 附近可能呈现平滑的连续谱，没有单一明显峰值。在这种情况下，可用幂律近似SED的局部形状。例如，Haas等发现许多PG类星体在近至中红外（\(\sim 1–40\mu m\)）可以用 \( F_\nu \propto \nu^\alpha \) 的幂律光谱描述，并平滑外推至远红外。这暗示这些对象的红外由AGN加热尘埃贡献为主且分布宽广，星暴成分不明显，使得光谱呈单调连续分布，而非出现冷尘峰。
+      </p>
+      <p span class="comment-box">注：这种模型适合局部描述，但单一幂律无法同时匹配近红外和远红外的全部谱段。</span>
+      </p>
+      <p>
+        局限性：幂律模型参数少（只需 \(\alpha\) 和归一化），拟合简单，但缺乏直接的物理指认。它<strong>无法体现辐射峰值</strong>：真实尘埃黑体辐射会在 \( 50-200 \mu m\) 出现峰值，而纯幂律光谱无峰，仅单调变化。因此，当类星体SED在远红外显示“冷尘峰”时，单一幂律将无法贴合（要么高估峰前光度，要么低估峰值本身）。另外，幂律指数可能随波段变化（出现折变），需要分段幂律拟合。因此，幂律模型更适合作为局部或经验描述，例如描述近红外~中红外的光谱斜率，或在没有清晰峰值特征的有限波段采用。
+      </p>
+      
+      <h3>2. 修正黑体模型 (Modified Blackbody, MBB) （参考<a href="https://ned.ipac.caltech.edu/level5/Sept04/Blain/Blain2_2.html#:~:text=The%20simplest%20form%20of%20the,redshift%20galaxies.%20At%20the%20expense" target="_blank">这篇文章</a>）</h3>
+      <p>
+        数学形式：修正黑体模型（又称“灰体”模型）用于描述尘埃热辐射，其基本思想是在标准黑体谱上加入频率依赖的发射率因子。其典型表达为：
+      </p>
+      <p>
+        \[
+        F_{\nu}(\nu) \propto \kappa_{\nu} \, B_{\nu}(T_d)
+        \]
+      </p>
+      <p>
+        其中\(\kappa_\nu\)是尘埃对频率\(\nu\)的吸收/发射系数。常假定在远红外至亚毫米的频率范围 \(\kappa_\nu \propto \nu^{\beta}\) ，\(\beta\) 称为尘埃发射率指数。 \(B_\nu(T_d)\) 是温度为 \(T_d\) 的黑体（普朗克）函数。若尘埃在该波段对辐射光学上薄，则 \(F_\nu\) 形状与 \(\kappa_\nu B_\nu\) 成正比。展开可写为：
+      </p>
+      <p>
+        \[
+        F_{\nu} \propto \nu^{\beta} \frac{2h\nu^3}{c^2} \frac{1}{e^{h\nu/kT_d}-1}
+        \]
+      </p>
+      <p>
+        其中 \(T_d\) 即<strong>尘埃温度参数</strong>， \(\beta\) 为<strong>发射率指数</strong> (通常取1–2之间；银河系漫射尘埃 \(\beta\approx2\) ，某些星际环境下 \(\beta\approx1\)) 。归一化常作为待定参数，可与尘埃质量、填充因子有关。当 \(\nu\) 远小于峰值频率（Rayleigh-Jeans尾段）， \(B_\nu(T)\approx 2kT\nu^2/c^2\) 近似，代入上式得到 \(F_\nu \propto \nu^{2+\beta}\) ；而在高频端接近峰值处， \(F_\nu\) 逐渐转为指数下降（维恩区）。因此<strong>修正黑体谱在低频端呈幂律上升</strong>，在某一频率 \(\nu_{\rm peak}\) 附近达到峰值，在更高频处迅速下降，符合热辐射的特征形态。
+      </p>
+      <p>
+        <strong>物理含义与参数</strong>：\(T_d\) 反映了尘埃的平衡温度，决定黑体谱峰的位置（峰波长 \(\lambda_{\rm peak}\approx 2900\ \mu{\rm m,K}/T_d\)） 。 \(\beta\) 描述尘埃对长波辐射的发射效率： \(\beta=0\) 对应理想黑体，无频率依赖； \(\beta>0\) 则表示尘埃对较高频率辐射更高效，因此在远红外尾部谱形更陡峭。如果尘埃云在观测波段并非完全光学薄，还可在公式中加入 \((1-e^{-\tau_\nu})\) 因子表征光深；不过对于类星体远红外通常假定光学薄以简化。<strong>归一化系数</strong>通常与尘埃质量 \(M_{\rm dust}\) 和距离有关，如 \(F_\nu \propto \kappa_\nu M_{\rm dust} B_\nu(T)/D_L^2\) 。因此拟合出的 \(N\)（归一化）可结合假定 \(\kappa_\nu\) 值得到尘埃质量估计（<a href="https://ned.ipac.caltech.edu/level5/Sept04/Blain/Blain2_2.html#:~:text=The%20simplest%20form%20of%20the,redshift%20galaxies.%20At%20the%20expense" target="_blank">Blein 等人</a>）.
+      </p>
+      <p>
+        <strong>适用条件</strong>：修正黑体模型适用于<strong>热尘埃主导的红外辐射</strong>情形，特别是当尘埃温度分布相对集中特定范围：
+      </p>
+      <p><span class="points">
+        单温或窄温度分布尘埃：如果类星体的红外辐射主要来自一种尘埃成分（例如星系中的冷尘埃，\(T\ \leq\ 100K\)），其SED会呈现一个远红外峰。单一MBB可以很好地拟合这个峰及长波长尾部。例如，高红移类星体宿主星系的冷尘埃（由恒星形成加热）常用单一灰体模型拟合以测定尘埃温度和质量。<a href="https://www.aanda.org/articles/aa/pdf/2021/08/aa39696-20.pdf#:~:text=ALMA%20multiline%20survey%20of%20the,2008" target="_blank">Pensabene等人</a>的研究显示典型类星体宿主的尘埃温度约在 \(40–70{K}\)（\(\beta\):\(1.6\sim2.0\)），接近黑洞的尘埃温度为约在\(100–500{\rm K}\)。<a href="https://www.aanda.org/articles/aa/pdf/2021/08/aa39696-20.pdf#:~:text=ALMA%20multiline%20survey%20of%20the,2008" target="_blank">Beelen等人</a>等通过拟合 \(z\sim6\) 类星体的FIR–毫米波测光测得 \(T_d\approx47{\rm K}， std=5{\rm K}\) 为代表值。
+      </p>
+      <p>
+        局限性：单一温度模型难以覆盖类星体整体红外辐射（通常由 \(50\)–\(1000\,\text{K}\) 不同温度尘埃组成），实际应用中常需要多组件灰体模型，例如用一个 \(T\sim40\,\text{K}\) 灰体表示冷尘，再用一个 \(T\sim150\,\text{K}\) 灰体描述暖尘。否则，单一 MBB 往往在峰值两侧均难以同时准确拟合。此外，\(T_d\) 与 \(\beta\) 之间存在耦合，为减少不确定性，有限数据点时常需固定 \(\beta\) 值。
+      </p>
+      <p span class="comment-box">
+        中红外部分因尘埃光学厚或复杂几何效应而偏离简单 MBB 预测。
+      </p>
+      
+      <h3>3. 观测数据中的模型应用实例</h3>
+      <p>
+        大量观测研究运用了幂律或修正黑体模型对类星体的红外SED进行拟合和分解。下面列举若干典型案例：<br>
+      </p>
+      <p><span class="points">
+        <strong>光学选样低红移类星体 (PG类星体)的IR连续谱</strong>： IRAS和ISO对PG类星体的观测表明，这些射电安静类星体普遍存在明亮的红外辐射。<a href="https://www.aanda.org/articles/aa/pdf/2003/16/aa3053.pdf#:~:text=quiet%20quasars,luminosity%2C%20nor%20with%20the%20FIR%2FMIR" target="_blank">Haas等人</a>利用ISO完整测量了64个PG类星体\(5–200\mu m\)的SED，发现<strong>近到中红外部分呈幂律型光谱</strong>，在远红外没有出现额外的强凸起。例如 \(1–10\mu m\) 波段的光谱指数 \(\alpha\) 集中在-0.9到-2.2。这种平滑的幂律红外谱能量分布表明尘埃由中心AGN辐射加热，覆盖了宽广温度分布，以致于从近红外一直光滑衰减到远红外。Haas等据此指出，对于其研究的高光度类星体(红移~1)，星暴对红外的贡献微弱，即使在远红外波段也是AGN加热尘埃占主导。这意味着<strong>幂律模型</strong>在这类情况下充分描述了红外连续谱。相反，<a href="https://adsabs.harvard.edu/full/1995MNRAS.272..737R" target="_blank">Rowan-Robinson (1995)</a> 等提出需要增加星暴成分来解释远红外过量。后续更大样本研究也发现，不同类星体IR SED形态存在差异，有的接近单一幂律，有的在 \(60–100\mu m\) 出现第二峰。这些差异被解释为尘埃分布及演化的不同：早期可能有强星暴冷尘峰，后期尘埃更集中于环状结构使IR更平滑。总体而言，<strong>对于很多射电安静QSO，中红外幂律+弱远红外成分的模型能较好拟合观测</strong>。
+      </p>
+      <p><span class="points">
+        <strong>射电噪类星体的红外SED</strong>： 射电类星体（如3C系列强射电QSO）在远红外/毫米波常有同步辐射贡献。观测显示射电类星体的红外辐射往往高于<strong>射电噪类星体的红外SED</strong>，需要一个非热幂律成分。例如 <a href="https://ui.adsabs.harvard.edu/abs/1988AJ.....95..307I/abstract" target="_blank">Impey & Neugebauer (1988)</a> 发现一些射电类星体红外至光学的双峰差异，其中红外部分平滑连接射电频谱，暗示由喷流同步辐射主导。<a href="https://www.aanda.org/articles/aa/pdf/2003/16/aa3053.pdf#:~:text=in%20addition%20to%20the%20AGN,synchrotron%20emission%20in%20flat%20spectrum" target="_blank">Haas等人</a>也指出，类星体红外辐射是热尘埃和同步辐射的混合，对射电安静源以热尘为主，而平谱射电类星体中同步辐射可以占据一部分IR。在拟合此类对象时，一般采用<strong>“热尘埃+幂律”双成分模型</strong>：例如尘埃部分用MBB描述远红外峰，而<strong>额外加入一个幂律光谱拟合长波</strong>（毫米-厘米波）的平坦延伸。这在一些高红移射电噪类星体的SED分解中得到应用，可以更准确扣除尘埃成分。
+      </p>
+      <p>
+        此外，一些研究（如 Leipski 等 2014）发现，在某些极端情况下，整个红外 SED 都可能由 AGN 尘埃贡献，无需引入星暴成分；而另有研究则表明，部分类星体几乎缺失热尘辐射（近红外明显偏弱），需要采用更复杂的辐射转移模型（例如 Mor & Trakhtenbrot 2011 提出的“无热尘类星体”案例）。
+      </p>
+      
+      <h3>4. 综合讨论</h3>
+      <p>
+        综上，幂律和灰体模型已在大量观测中得到应用：<strong>幂律模型</strong>常用于拟合中红外连续谱斜率以及射电类星体的非热成分，<strong>修正黑体模型</strong>则是量化冷尘埃性质和星形成贡献的标准工具。许多研究通过组合两者，实现对类星体SED的分解，在解释AGN热尘和宿主星暴两种机制上取得良好效果。
+      </p>
+      
+      <h3>参考文献及链接</h3>
+      <p>
+        Haas et al. (2003) - The ISO view of PG quasars： 
+        <a href="https://ui.adsabs.harvard.edu/abs/2003A&A...402...87H/abstract" target="_blank">https://ui.adsabs.harvard.edu/abs/2003A&A...402...87H/abstract</a>
+      </p>
+      <p>
+        Impey & Neugebauer (1988) - Infrared properties of radio-loud quasars： 
+        <a href="https://ui.adsabs.harvard.edu/abs/1988AJ.....95..307I/abstract" target="_blank">https://ui.adsabs.harvard.edu/abs/1988AJ.....95..307I/abstract</a>
+      </p>
+      <p>
+        Beelen et al. (2006) - FIR properties of z~6 quasars： 
+        <a href="https://ui.adsabs.harvard.edu/abs/2006ApJ...642..694B/abstract" target="_blank">https://ui.adsabs.harvard.edu/abs/2006ApJ...642..694B/abstract</a>
+      </p>
+      <p>
+        Wang et al. (2008) - High-z quasar FIR SEDs： 
+        <a href="https://ui.adsabs.harvard.edu/abs/2008ApJ...687..848W/abstract" target="_blank">https://ui.adsabs.harvard.edu/abs/2008ApJ...687..848W/abstract</a>
+      </p>
+      <p>
+        Knudsen et al. (2003) - SED decomposition in sub-mm quasars： 
+        <a href="https://ui.adsabs.harvard.edu/abs/2003A&A...411..343K/abstract" target="_blank">https://ui.adsabs.harvard.edu/abs/2003A&A...411..343K/abstract</a>
+      </p>
+      <p>
+        Salvestrini et al. (2023) - ALMA observations of z&gt;7 quasar hosts： 
+        <a href="https://arxiv.org/abs/2412.02688" target="_blank">https://arxiv.org/abs/2412.02688</a>
+      </p>
+      <p>
+        Elvis et al. (1994) - A standard quasar SED： 
+        <a href="https://ui.adsabs.harvard.edu/abs/1994ApJS...95....1E/abstract" target="_blank">https://ui.adsabs.harvard.edu/abs/1994ApJS...95....1E/abstract</a>
+      </p>
+      <p>
+        Leipski et al. (2014) - Herschel study of z&gt;5 quasars： 
+        <a href="https://ui.adsabs.harvard.edu/abs/2014ApJ...785..154L/abstract" target="_blank">https://ui.adsabs.harvard.edu/abs/2014ApJ...785..154L/abstract</a>
+      </p>
+      <h2>类星体的多波段关系</h2>
+      <h3>红外-射电关系</h3>
+      <p>
+        <strong>星系与类星体的红外/射电关系差异</strong>：在星形成星系中，远红外辐射（来自尘埃加热）和射电辐射（来自超新星余晖中的宇宙射线）呈现出紧密相关，即著名的远红外–射电关联。然而，对于活动星系核（AGN）主导的类星体，这一关联发生偏离。研究表明，在相同的远红外亮度下，类星体往往具有高出约一个数量级的射电亮度（<a href="https://oar.princeton.edu/bitstream/88435/pr15x65/1/stv2571.pdf#:~:text=We%20have%20demonstrated%20that%20quasars,dominated%20regime.%20If" target="_blank"> Zakamska等人</a>）。换言之，<strong>类星体红外-射电比值（通常以</strong>\(\ q_{\rm IR}\ \)<strong>表示）显著低于纯恒星形成星系</strong>。这意味着类星体在射电波段有超出星形成所能解释的“射电超量”。例如，一般星形成星系的\(\ q_{IR}\ \)参数约为 \(2–3\) （即红外辐射强于射电），而类星体往往只有\(\ q_{IR}\sim1\ \)左右。这种射电超量被认为源自AGN活动（如喷流或AGN驱动的风），而不仅仅是星形成过程。
+      </p>
+      <p>
+        <strong>红外–射电关联的存在与否</strong>：尽管类星体整体偏离星系的远红外–射电关联，一些研究在全红外波段（\(8–1000\mu m\)）内发现星系与类星体总体上可能仍落在同一条红外–射电关联线上，但关联的散射和归一化可能有所不同。例如，有学者指出如果包含AGN热尘辐射在内的总红外亮度，相对于射电亮度类星体与星系或许可以排列在类似关联上。然而，这种表面关联可能掩盖了物理机制的差异：对于<strong>射电静（radio-quiet）</strong>的类星体，其微弱射电辐射可能来自星系中的星形成成分，使其红外-射电比值接近星系水平；而<strong>射电噪（radio-loud）</strong>的类星体射电通量主要由喷流贡献，红外-射电比值大幅降低。总的来说，类星体样本的红外-射电比值分布非常宽泛，反映了从射电安静到射电响亮的连续过渡。
+      </p>
+      <!-- 正文内容结束 -->
+    </article>
+    
+    <!-- 右侧边栏 -->
+    <aside class="right-sidebar">
+      <div class="search-container">
+        <h3>Search</h3>
+        <div class="search">
+          <form action="#" method="GET">
+            <input type="text" name="search" placeholder="Search articles..." />
+            <button type="submit">Search</button>
+          </form>
+        </div>
+      </div>
+        <!-- Tags 模块 -->
+        <div class="tags">
+          <h3 class="tags-header">
+              Tags 
+              <span class="toggle-tags">[展开]</span>
+          </h3>
+          <ul class="tags-list"></ul>
+      </div>
+      <div class="categories">
+        <h3>Articles Categories</h3>
+        <ul>
+          <li><a href="#">Astronomy</a></li>
+          <li><a href="#">Physics</a></li>
+        </ul>
+      </div>
+    </aside>
+  </div>
+  
+  <!-- Footer Section -->
+  <footer>
+    <p>&copy; 2024 Personal Blog. All rights reserved.</p>
+  </footer>
+  
+  <script src="../../js/script.js"></script>
+  <script src="../../js/tags.js"></script>
+  <script src="../../js/search.js"></script>
+  <script src="../../js/article-navigation.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/MathJax.js?config=TeX-AMS_HTML" async></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/highlight.min.js"></script>
+  <script>
+    hljs.highlightAll();
+  </script>
+</body>
+</html>

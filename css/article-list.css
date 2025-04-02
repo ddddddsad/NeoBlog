@@ -1,0 +1,69 @@
+/* 通用文章列表样式 */
+.article-list {
+    width: 65%; /* 设置文章列表占布局的 65% 宽度 */
+    padding: 20px; /* 内边距为 20px */
+    background-color: #fff; /* 背景颜色为白色 */
+    border-radius: 8px; /* 设置圆角 */
+    box-shadow: 0 0 15px rgba(0, 0, 0, 0.1); /* 添加阴影效果 */
+}
+
+/* 文章列表标题样式 */
+.article-list h1 {
+    border-bottom: 2px solid #ddd; /* 添加浅灰色下边框 */
+    padding-bottom: 5px; /* 设置标题与下边框之间的距离 */
+    margin-top: 10px;
+    margin-bottom: 10px; /* 设置标题与下方内容的距离 */
+    font-size: 24px; /* 设置标题字体大小 */
+    color: #333; /* 设置标题颜色 */
+}
+
+.article-list ul li {
+    margin-top: 20px; /* 列表项之间的距离 */
+    margin-bottom: 10px; /* 列表项之间的距离 */
+}
+
+.article-list ul li div {
+    margin-top: 10px; /* 列表项之间的距离 */
+    margin-bottom: 10px; /* 列表项之间的距离 */
+}
+
+/* 文章列表标题样式 */
+.article-list-title {
+    border-top: 2px solid #ddd; /* 添加浅灰色上边框 */
+    padding-top: 5px;
+    color: #007bff; /* 蓝色字体 */
+    font-size: 18px; /* 字体大小 */
+    font-weight: 600; /* 加粗 */
+    text-decoration: none; /* 移除下划线 */
+    margin-bottom: 15px; /* 在标题和标签之间增加 15px 的距离 */
+}
+
+.article-list-title:hover {
+    text-decoration: underline; /* 悬停时显示下划线 */
+}
+
+.article-list time {
+    margin-left: auto; /* 自动外边距，使日期右对齐 */
+    color: #888; /* 日期颜色 */
+    font-size: 0.9em; /* 日期字体大小 */
+}
+
+/* Tags 文字样式 */
+.article-list-tag {
+    color: #666; /* 浅灰色字体 */
+    font-size: 14px; /* 字体大小 */
+}
+
+/* 标签名称样式 */
+.article-list-tagsName {
+    background-color: #007bff; /* 蓝色背景 */
+    color: #fff; /* 白色字体 */
+    padding: 5px 5px; /* 内边距 */
+    border-radius: 4px; /* 圆角 */
+    font-size: 14px; /* 字体大小 */
+    text-decoration: none; /* 移除下划线 */
+}
+
+.article-list-tagsNamed:hover {
+    background-color: #0056b3; /* 悬停时背景变深 */
+}
