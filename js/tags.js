@@ -4,13 +4,15 @@ document.addEventListener('DOMContentLoaded', async () => {
     let isCollapsed = true;
     
     try {
-        // 加载所有标签数据
         const categories = ['Astronomy', 'Physics', 'Explorations'];
         const allData = await Promise.all(
             categories.map(cat => 
-                // 修改为绝对路径
-                fetch(`/data/${cat}Articles.json`)
-                    .then(res => res.json())
+                // 修改为相对路径，适配GitHub Pages
+                fetch(`data/${cat}Articles.json`)
+                    .then(res => {
+                        if (!res.ok) throw new Error(`${res.status} ${res.statusText}`);
+                        return res.json();
+                    })
                     .catch(error => {
                         console.error(`Error loading ${cat} articles:`, error);
                         return [];
