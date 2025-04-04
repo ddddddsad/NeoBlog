@@ -5,16 +5,24 @@ document.addEventListener('DOMContentLoaded', async () => {
     
     try {
         const categories = ['Astronomy', 'Physics', 'Explorations'];
+        // 动态获取仓库基础路径
+        const basePath = window.location.pathname.startsWith('/NeoBlog') 
+            ? '/NeoBlog' 
+            : '';
+
         const allData = await Promise.all(
             categories.map(cat => 
-                // 修改为相对路径，适配GitHub Pages
-                fetch(`data/${cat}Articles.json`)
+                fetch(`${basePath}/data/${cat}Articles.json`)
                     .then(res => {
-                        if (!res.ok) throw new Error(`${res.status} ${res.statusText}`);
+                        if (!res.ok) throw new Error(`HTTP ${res.status} - ${res.url}`);
+                        const contentType = res.headers.get('content-type');
+                        if (!contentType || !contentType.includes('application/json')) {
+                            throw new Error(`Invalid content-type: ${contentType}`);
+                        }
                         return res.json();
                     })
                     .catch(error => {
-                        console.error(`Error loading ${cat} articles:`, error);
+                        console.error(`[${cat}]加载错误:`, error.message);
                         return [];
                     })
             )
