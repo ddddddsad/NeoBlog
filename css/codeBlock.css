@@ -1,0 +1,20 @@
+pre code.python {
+    border-radius: 16px;
+    font-size: 14px;
+    margin-top: 0px;
+    margin-left: 10px;
+    margin-right: 10px;
+    margin-bottom: 4px;
+ }
+
+
+pre {
+    font-family: 'Consolas', 'Monaco', 'Lucida Console', 'Ubuntu Mono', monospace;
+    color: #f8f8f2;
+    padding: 5px;
+    margin: 10px 0;
+}
+
+code {
+    color: #f8f8f2;
+}

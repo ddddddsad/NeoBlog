@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CIGALE fot SED Fitting</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/default.min.css">
+    <link rel="stylesheet" href="../../css/MainStyle.css">
+    <link rel="stylesheet" href="../../css/article-list.css">
+    <link rel="stylesheet" href="../../css/article-navigation.css">
+    <link rel="stylesheet" href="../../css/codeBlock.css">
+</head>
+<body>
+    <!-- Header Section -->
+    <header>
+        <nav>
+            <ul>
+                <li><a href="../../index.html">Home</a></li>
+                <li><a href="../../AboutMe/aboutme.html">About Me</a></li>
+                <li class="dropdown">
+                    <a href="javascript:void(0);" class="dropbtn">Articles</a>
+                    <ul class="dropdown-content">
+                        <li><a href="../Astronomy/_AstronomyMenu.html">Astronomy</a></li>
+                        <li><a href="../Physics/_PhysicsMenu.html">Physics</a></li>
+                        <li><a href="../Explorations/_ExplorationsMenu.html">Explorations</a></li>
+                    </ul>
+                </li>
+                <li><a href="../../contact.html">Contact Me</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <div class="main-content">
+        <!-- 左侧边栏 -->
+        <aside class="left-sidebar">
+            <!-- Articles Navigation 模块 -->
+            <div class="article-navigation">
+                <div class="toggleArea">☰ Menu</div>
+                <ul id="toc">
+                    <!-- 目录将在这里生成 -->
+                </ul>
+            </div>
+        </aside>
+        <article class="article-content">
+            <h1>SED Fitting Navigation</h1>
+            <div class="meta-info">
+                <div class="article-tags">
+                    <a href="#">Code</a>
+                    <a href="#">Navigation</a>
+                </div>
+                <div class="publish-date">2024-12-10 13:34:42</div>
+            </div>
+            <a href="https://cigale.lam.fr/">CIGALE</a> 是目前被广泛应用的一个SED拟合程序。在这里，我只想介绍一下它的运行过程（怎样拟合一个源的SED？怎样获得它的最佳SED拟合？）以及怎样准备SED拟合所用的数据？
+            <p>如果想了解CIGALE的工作原理，建议你看<a href="https://www.aanda.org/articles/aa/pdf/2019/02/aa34156-18.pdf" target="_blank">这篇文章</a>。</p>
+            <h2>Installation</h2>
+                <p>安装很简单，具体过程在<a href="https://cigale.lam.fr/documentation/" target="_blank">这里</a></p>
+            
+            <h2>CIGALE 运行过程</h2>
+            <p>第一步：产生pcigale.ini文件，并在其中写入所用数据文件及model</p>
+            <pre><code class="ini">
+pcigale init
+            </code></pre>
+            <p>修改“pcigale.ini”文件中的内容：</p>
+            <pre><code class="ini">
+data_file = test.txt
+sed_modules = sfhdelayed, bc03, dustatt_modified_starburst, dale2014, redshifting
+analysis_method = pdf_analysis
+cores = 1
+            </code></pre>
+            <p>第二步：产生model参数，并修改其参数</p>
+            <pre><code class="ini">
+pcigale genconf
+            </code></pre>
+            <p>修改“pcigale.ini”文件中的内容：</p>
+            <pre><code class="ini">
+tau_main = 250, 500, 1000, 2000, 4000, 6000, 8000
+age = 250, 500, 1000, 2000, 4000, 8000, 10000, 12000
+E_BV_lines = 0.1, 0.15, 0.2, 0.25, 0.3, 0.35, 0.4, 0.45, 0.5, 0.55, 0.6
+alpha = 1.0, 1.5, 2.0, 2.5
+            </code></pre>
+            <p>演示中修改的参数，实际根据自己要求改参数。</p>
+            <p>    注：最麻烦的过程，一组数据不可能满足所有的源。所以有时候需要修改参数使得这个源能被很好的拟合。</p>
+            <p>第三步：跑程序，并输出最佳的拟合</p>
+            <pre><code class="ini">
+pcigale run
+            </code></pre>
+            <p>第四步：输出最佳拟合的SED</p>
+            <pre><code class="ini">
+pcigale-plot sed
+            </code></pre>
+            <p>注意：要输出最佳拟合的SED，必须在跑程序之前修改 “pcigale.ini” 文件中 save_best_sed = True</p>
+            <p>            
+                <a class="back-button" href="_AstronomyMenu.html">Back to Astronomy Articles</a>
+            </p>
+        </article>
+    <!-- 右侧边栏 -->
+    <aside class="right-sidebar">
+        <!-- Search 模块 -->
+        <div class="search-container">
+          <h3>Search</h3>
+          <div class="search">
+              <form action="#" method="GET">
+                  <input type="text" name="search" placeholder="Search articles..." />
+                  <button type="submit">Search</button>
+              </form>
+          </div>
+      </div>
+        <!-- Tags 模块 -->
+        <div class="tags">
+          <h3 class="tags-header">
+              Tags
+          </h3>
+          <ul class="tags-list"></ul>
+      </div>
+    </aside>
+  </div>
+  
+  <!-- Footer Section -->
+  <footer>
+    <p>&copy; 2024 Personal Blog. All rights reserved.</p>
+  </footer>
+  
+  <script src="../../js/script.js"></script>
+  <script src="../../js/tags.js"></script>
+  <script src="../../js/search.js"></script>
+  <script src="../../js/article-navigation.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/MathJax.js?config=TeX-AMS_HTML" async></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/highlight.min.js"></script>
+    <script>
+        hljs.highlightAll();
+    </script>
+</body>
+</html>

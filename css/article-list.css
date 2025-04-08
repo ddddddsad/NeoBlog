@@ -1,0 +1,74 @@
+/* 极简文章列表样式 */
+.article-list {
+    width: 65%; /* 增加内容占比 */
+    padding: 24px 0; /* 垂直留白 */
+    margin-left: 100px;
+    background-color: transparent; /* 移除背景色 */
+    box-shadow: none; /* 去除阴影 */
+}
+
+/* 列表标题极简化 */
+.article-list h1 {
+    font-weight: 300; /* 细字重 */
+    font-size: 1.5rem;
+    letter-spacing: 0.05em;
+    color: #424242; /* 深灰色 */
+    border-bottom: 1px solid #eee; /* 细线分割 */
+    padding-bottom: 0.5rem;
+    margin: 2rem 0;
+}
+
+/* 列表项极简改造 */
+.article-list ul li {
+    margin: 1.5rem 0;
+    padding: 0.5rem 0;
+    position: relative;
+}
+
+/* 文章标题样式 */
+.article-list-title {
+    color: #333;
+    font-size: 1.1rem;
+    font-weight: 400;
+    margin-bottom: 0.8rem; /* 新增标题下边距 */
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    display: inline-block;
+    text-decoration: none; /* 移除下划线 */
+}
+
+.article-list-title:hover {
+    color: #b30000;
+    transform: translateX(4px); /* 悬浮位移效果 */
+    text-decoration: none;
+}
+
+/* 日期样式优化 */
+.article-list time {
+    color: #999; /* 浅灰色 */
+    font-size: 0.85rem;
+    font-weight: 300;
+    letter-spacing: 0.05em;
+    margin-left: 10px;
+}
+
+/* 标签极简样式 */
+.article-list-tag {
+    color: #666;
+    font-size: 0.8rem;
+}
+
+.article-list-tagsName {
+    background: transparent;
+    color: #666;
+    padding: 0.2rem 0;
+    border-bottom: 1px solid #ddd; /* 下划线替代色块 */
+    border-radius: 0;
+    transition: all 0.2s ease;
+    text-decoration: none; /* 移除下划线 */
+}
+
+.article-list-tagsName:hover {
+    color: #b30000;
+    border-color: #b30000;
+    background: rgba(179, 0, 0, 0.05); /* 极浅背景色 */
+}
