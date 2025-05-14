@@ -1,0 +1,155 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SED Fitting Navigation</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/default.min.css">
+    <link rel="stylesheet" href="../../css/MainStyle.css">
+    <link rel="stylesheet" href="../../css/article-list.css">
+    <link rel="stylesheet" href="../../css/article-navigation.css">
+    <link rel="stylesheet" href="../../css/codeBlock.css">
+</head>
+<body>
+    <!-- Header Section -->
+    <header>
+        <nav>
+            <ul>
+                <li><a href="../../index.html">Home</a></li>
+                <li><a href="../../AboutMe/aboutme.html">About Me</a></li>
+                <li class="dropdown">
+                    <a href="javascript:void(0);" class="dropbtn">Articles</a>
+                    <ul class="dropdown-content">
+                        <li><a href="../Astronomy/_AstronomyMenu.html">Astronomy</a></li>
+                        <li><a href="../Physics/_PhysicsMenu.html">Physics</a></li>
+                        <li><a href="../Explorations/_ExplorationsMenu.html">Explorations</a></li>
+                    </ul>
+                </li>
+            </ul>
+        </nav>
+    </header>
+
+    <div class="main-content">
+        <!-- 左侧边栏 -->
+        <aside class="left-sidebar">
+            <!-- Articles Navigation 模块 -->
+            <div class="article-navigation">
+                <div class="toggleArea">☰ Menu</div>
+                <ul id="toc">
+                    <!-- 目录将在这里生成 -->
+                </ul>
+            </div>
+        </aside>
+        <article class="article-content">
+            <h1>SED Fitting Navigation</h1>
+            <div class="meta-info">
+                <div class="article-tags">
+                    <a href="#">Code</a>
+                    <a href="#">Navigation</a>
+                </div>
+                <div class="publish-date">2024-10-16 17:19:18</div>
+            </div>
+            <p>
+                A Conclusion of SED Fitting Data that I've been working on for a while. more to see: <a href="http://www.sedfitting.org/Models.html" target="_blank">http://www.sedfitting.org/Models.html</a>
+            </p>
+            <h2>
+                AGN SED Fitting
+            </h2>
+            <p>
+                The AGNSED model is a comprehensive tool used to fit the spectral energy distribution (SED) of Active Galactic Nuclei (AGN). Developed by Kubota & Done (2018), this model allows for detailed analysis of AGN emissions by dividing the radiation source into three main regions: the outer standard disc, the warm Comptonising region, and the inner hot Comptonising region. By modeling the complex processes occurring in each of these regions, AGNSED helps in understanding the multi-wavelength emission properties of AGNs, including optical, UV, and X-ray bands. You can find more details in the original paper by <a href="https://ui.adsabs.harvard.edu/abs/2018MNRAS.480.1247K/abstract" target="_blank">Kubota & Done (2018)</a>.
+            </p>
+            <p>
+                AGNSED
+                <a href="https://heasarc.gsfc.nasa.gov/xanadu/xspec/manual/node132.html" target="_blank">Source</a>
+            </p>
+            <p>
+                In the AGNSED model:
+                <ul>
+                    <li><strong>Outer Disc Region</strong>: This region emits radiation similar to a standard accretion disc, covering the optical and UV part of the spectrum.</li>
+                    <li><strong>Warm Comptonising Region</strong>: Located between the outer disc and the inner hot corona, this region is responsible for the soft X-ray excess observed in many AGNs. It Comptonises seed photons from the disc and is optically thick with a lower electron temperature.</li>
+                    <li><strong>Hot Comptonising Region</strong>: The innermost region near the black hole, responsible for producing hard X-rays through Comptonisation of the seed photons from the disc. This region is characterized by a higher temperature and lower optical depth.</li>
+                </ul>
+                AGNSED offers the flexibility to adjust parameters such as black hole mass, accretion rate, spin, and Comptonisation properties, making it suitable for studying various types of AGNs, including Seyfert galaxies and quasars. It provides insights into the energy dissipation, radiation mechanisms, and physical structure of the accretion flow around the supermassive black hole.
+            </p>
+            <p>
+                There is also a simplified version of the model called <strong>QSOSED</strong>, which fixes some of the parameters at their typical values to reduce complexity, making it more efficient for fitting large datasets or when detailed parameter variation is not required.
+            </p>
+            <h2>
+                Models
+            </h2>
+            <h3>
+                Stellar population models
+            </h3>
+            <h4>
+                BASTI
+            </h4>
+            <p>
+                A bag of Stellar Tracks and Isochrones.
+                <a href="http://albione.oa-teramo.inaf.it/" target="_blank">Source</a>
+            </p>
+            <h4>
+                Galev
+            </h4>
+            <p>
+                GALaxy EVolutionary Synthesis models by Kotulla et al., includes the spectral and chemical evolution of galaxies.
+                <a href="http://www.galev.org/" target="_blank">Source</a>
+            </p>
+            <h4>
+                Starburst99
+            </h4>
+            <p>
+                Stellar population code designed to model spectrophotometric and related properties of young galaxies.
+                <a href="https://massivestars.stsci.edu/starburst99/docs/default.htm" target="_blank">Source</a>
+            </p>
+            <h3>
+                Dust emission models
+            </h3>
+            <h4>
+                Dale+Helou
+            </h4>
+            <p>
+                Library of IR templates sorted by α, where α is the index of the dust mass distribution over heating intensity U; dM=U^-α dU
+                <a href="https://physics.uwyo.edu/~ddale/research/seds/seds.html" target="_blank">Source</a>
+            </p>
+            <p>            
+                <a class="back-button" href="_AstronomyMenu.html">Back to Astronomy Articles</a>
+            </p>
+        </article>
+    <!-- 右侧边栏 -->
+    <aside class="right-sidebar">
+        <!-- Search 模块 -->
+        <div class="search-container">
+          <h3>Search</h3>
+          <div class="search">
+              <form action="#" method="GET">
+                  <input type="text" name="search" placeholder="Search articles..." />
+                  <button type="submit">Search</button>
+              </form>
+          </div>
+      </div>
+        <!-- Tags 模块 -->
+        <div class="tags">
+          <h3 class="tags-header">
+              Tags
+          </h3>
+          <ul class="tags-list"></ul>
+      </div>
+    </aside>
+  </div>
+  
+  <!-- Footer Section -->
+  <footer>
+    <p>&copy; 2024 Personal Blog. All rights reserved.</p>
+  </footer>
+  
+  <script src="../../js/script.js"></script>
+  <script src="../../js/tags.js"></script>
+  <script src="../../js/search.js"></script>
+  <script src="../../js/article-navigation.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/MathJax.js?config=TeX-AMS_HTML" async></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/highlight.min.js"></script>
+    <script>
+        hljs.highlightAll();
+    </script>
+</body>
+</html>

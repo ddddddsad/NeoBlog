@@ -1,0 +1,290 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>GalaxyCode_general</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/default.min.css">
+    <link rel="stylesheet" href="../../css/MainStyle.css">
+    <link rel="stylesheet" href="../../css/article-list.css">
+    <link rel="stylesheet" href="../../css/article-navigation.css">
+    <link rel="stylesheet" href="../../css/codeBlock.css">
+</head>
+<body>
+    <!-- Header Section -->
+    <header>
+        <nav>
+            <ul>
+                <li><a href="../../index.html">Home</a></li>
+                <li><a href="../../AboutMe/aboutme.html">About Me</a></li>
+                <li class="dropdown">
+                    <a href="javascript:void(0);" class="dropbtn">Articles</a>
+                    <ul class="dropdown-content">
+                        <li><a href="../Astronomy/_AstronomyMenu.html">Astronomy</a></li>
+                        <li><a href="../Physics/_PhysicsMenu.html">Physics</a></li>
+                        <li><a href="../Explorations/_ExplorationsMenu.html">Explorations</a></li>
+                    </ul>
+                </li>
+            </ul>
+        </nav>
+    </header>
+
+    <div class="main-content">
+        <!-- 左侧边栏 -->
+        <aside class="left-sidebar">
+            <!-- Articles Navigation 模块 -->
+            <div class="article-navigation">
+                <div class="toggleArea">☰ Menu</div>
+                <ul id="toc">
+                    <!-- 目录将在这里生成 -->
+                </ul>
+            </div>
+        </aside>
+        <article class="article-content">
+            <h1>Physical Modeling of Quasar Multi-Wavelength Spectral Energy Distributions</h1>
+            <div class="meta-info">
+                <div class="article-tags">
+                    <a href="#">Astrophysics</a>
+                    <a href="#">AGN</a>
+                    <a href="#">Radiation Mechanisms</a>
+                </div>
+                <div class="publish-date">2025-4-9 19:38:16</div>
+            </div>
+            
+            <h2>1. Introduction</h2>
+            <p>
+                Classical quasars exhibit broadband emission spanning from radio to gamma-rays,
+                generated through distinct physical processes in different regions of the active galactic nucleus (AGN).
+                This article presents a first-principles approach to modeling their spectral energy distributions (SEDs)
+                without relying on phenomenological power-law approximations.
+            </p>
+            
+            <h2>2. Radiation Components and Physical Models</h2>
+            
+            <h3>2.1 Accretion Disk</h3>
+            <p>
+                通过求解基本的质量、动量、角动量与能量守恒方程组，在不同物理近似下得到的吸积解，
+                我们可以实现从标准薄盘、ADAF、LHAF 到 Slim Disk 的连续过渡，并进而推导出各自的多波段辐射谱。
+                这种统一的辐射积分框架连接了动力学与辐射过程，有助于对观测数据进行自洽解释。
+            </p>
+            <p>
+                实际上，标准薄盘（SSD）、ADAF、LHAF 乃至 Slim Disk 等不同吸积模式，
+                都是同一套径向稳恒、轴对称流体—动量—能量方程组的不同解，只是对关键物理参数和近似条件的处理不同。
+            </p>
+            
+            <h4>统一的原始方程组</h4>
+            <p><strong>1. 质量守恒：</strong></p>
+            <p>
+                \[
+                \dot{M} = -2\pi R\,\Sigma\,v_R = \text{const}
+                \]
+            </p>
+            <p><strong>2. 径向动量方程：</strong></p>
+            <p>
+                \[
+                v_R \frac{dv_R}{dR} - \frac{v_\phi^2}{R} = -\frac{GM}{R^2} - \frac{1}{\rho}\frac{dP}{dR}
+                \]
+            </p>
+            <p>在亚声速近似下，离心力与重力近似平衡：</p>
+            <p>
+                \[
+                \frac{v_\phi^2}{R} \approx \frac{GM}{R^2} \quad \Rightarrow \quad v_\phi \approx v_K = \sqrt{\frac{GM}{R}}
+                \]
+            </p>
+            <p><strong>3. 角动量守恒：</strong></p>
+            <p>
+                \[
+                \dot{M} (l - l_{\text{in}}) = 2\pi R^3 \nu \Sigma \frac{d\Omega}{dR}
+                \]
+            </p>
+            <p><strong>4. 垂直方向流体力平衡：</strong></p>
+            <p>
+                \[
+                H = \frac{c_s}{\Omega_K}, \quad \text{其中 } c_s^2 = \frac{P}{\rho}
+                \]
+            </p>
+            <p><strong>5. 能量守恒：</strong></p>
+            <p>
+                \[
+                Q^+ = Q^- + Q^{\rm adv}
+                \]
+            </p>
+            <ul>
+                <li>
+                    <strong>粘性加热：</strong>
+                    <p>
+                        \[
+                        Q^+ = \nu\,\Sigma\,R^2 \left(\frac{d\Omega}{dR}\right)^2 \approx \frac{3}{2}\,\nu\,\Sigma\,\Omega_K^2
+                        \]
+                    </p>
+                </li>
+                <li>
+                    <strong>辐射冷却（光深 \( \tau \gg 1 \)）：</strong>
+                    <p>
+                        \[
+                        Q^- = \frac{4\sigma T_c^4}{3\tau} = \frac{8ac\,T_c^4}{3\kappa\,\Sigma}
+                        \]
+                    </p>
+                </li>
+                <li>
+                    <strong>熵输运（Advective Cooling/Heating）：</strong>
+                    <p>
+                        \[
+                        Q^{\rm adv} = \frac{\dot{M}}{2\pi R^2} \frac{P}{\rho}\,\xi, \quad
+                        \xi = \frac{\frac{d\ln P}{d\ln R} - \gamma\,\frac{d\ln \rho}{d\ln R}}{\gamma - 1}
+                        \]
+                    </p>
+                </li>
+            </ul>
+            
+            <h4>Standard Thin Disk Model (Shakura-Sunyaev)</h4>
+            <p>
+                在 \( Q^{\rm adv} \ll Q^- \) 的条件下，假设所有产生的热量瞬间通过辐射释放，得到局域有效温度关系：
+            </p>
+            <p>
+                \[
+                \sigma\,T_{\text{eff}}^4(R) = \frac{3GM\,\dot{M}}{8\pi R^3} \left(1 - \sqrt{\frac{R_{\rm in}}{R}} \right)
+                \]
+            </p>
+            <p>
+                表面辐射视为局域黑体：
+            </p>
+            <p>
+                \[
+                L_\nu = 4\pi\,\cos i\,\int_{R_{\rm in}}^{R_{\rm out}} \pi\,B_\nu\bigl(T_{\text{eff}}(R)\bigr)\, 2\pi\,R\,dR
+                \]
+            </p>
+            
+            <h4>ADAF / LHAF / Slim Disk</h4>
+            <div class="model-comparison responsive-table">
+                <table class="model-table">
+                    <thead>
+                        <tr>
+                            <th>模型</th>
+                            <th>光深 \( \tau \)</th>
+                            <th>几何</th>
+                            <th>能量分配</th>
+                            <th>主要冷却机制</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>SSD</td>
+                            <td>\( \gg 1 \)</td>
+                            <td>薄盘 \( H/R \ll 1 \)</td>
+                            <td>\( Q^+ \approx Q^- \gg Q^{\rm adv} \)</td>
+                            <td>局域黑体辐射</td>
+                        </tr>
+                        <tr>
+                            <td>ADAF</td>
+                            <td>\( \ll 1 \)</td>
+                            <td>厚盘 \( H/R \sim 1 \)</td>
+                            <td>\( Q^- \ll Q^+ \approx Q^{\rm adv} \)</td>
+                            <td>同步辐射 + 康普顿</td>
+                        </tr>
+                        <tr>
+                            <td>LHAF</td>
+                            <td>\( \ll 1 \)</td>
+                            <td>厚盘</td>
+                            <td>\( Q^- > Q^+ > 0, \; Q^{\rm adv} < 0 \)</td>
+                            <td>高效率非热辐射</td>
+                        </tr>
+                        <tr>
+                            <td>Slim Disk</td>
+                            <td>\( \gg 1 \)</td>
+                            <td>厚盘 \( H/R \sim 1 \)</td>
+                            <td>\( Q^- + Q^{\rm adv} \approx Q^+ \)</td>
+                            <td>修正黑体辐射</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+            
+            <h4>统一谱表示</h4>
+            <p>
+                无论是 SSD、ADAF 还是 Slim Disk 模式，其整体光谱都可在统一的辐射积分框架中表示为：
+            </p>
+            <p>
+                \[
+                L_\nu = \int_{R_{\rm in}}^{R_{\rm out}} 2\pi\,R\,dR \int_{-H}^{H} j_\nu(R,z)\, e^{-\tau_\nu(R,z)}\,dz
+                \]
+            </p>
+            <p>
+                其中 <em>j<sub>ν</sub>(R,z)</em> 为局域发射系数，主要由以下各种辐射机制构成：
+            </p>
+            <ul>
+                <li>
+                    <strong>热黑体辐射：</strong>
+                    对于 SSD，视为局域黑体发射，可写为
+                    \[
+                    j_\nu^{\rm bb} \approx \pi\,B_\nu\bigl(T_{\text{eff}}(R)\bigr)\,\delta(z)
+                    \]
+                </li>
+                <li>
+                    <strong>同步辐射：</strong>
+                    形式近似为
+                    \[
+                    j_\nu^{\rm syn} \propto n_e\,B\,\nu^{-1/2}\,\exp\Bigl(-\sqrt{\nu/\nu_c}\Bigr),
+                    \]
+                    其中 \(\nu_c \sim \nu_B \gamma^2\) 且 \(\nu_B = eB/2\pi m_e c\)。
+                </li>
+                <li>
+                    <strong>自由-自由辐射：</strong>
+                    表达式为
+                    \[
+                    j_\nu^{\rm ff} \propto n_e^2\,T_e^{-1/2}\,\exp\Bigl(-\frac{h\nu}{kT_e}\Bigr).
+                    \]
+                </li>
+                <li>
+                    <strong>康普顿化：</strong>
+                    由低频 seed photon 经热电子多次散射形成近似 power-law 譜段，其修正可依赖于 Kompaneets 方程描述。
+                </li>
+            </ul>
+            <p>
+                最终的谱形反映了流体解（即 <em>n<sub>e</sub>(R)</em> 与 <em>T<sub>e</sub>(R)</em>）与主导辐射机制的耦合结果。
+            </p>
+            <h3>2.2 Dusty Torus</h3>
+
+            <h3>2.3 Jet</h3>
+
+        </article>
+        
+
+    <!-- 右侧边栏 -->
+    <aside class="right-sidebar">
+        <!-- Search 模块 -->
+        <div class="search-container">
+          <h3>Search</h3>
+          <div class="search">
+              <form action="#" method="GET">
+                  <input type="text" name="search" placeholder="Search articles..." />
+                  <button type="submit">Search</button>
+              </form>
+          </div>
+      </div>
+        <!-- Tags 模块 -->
+        <div class="tags">
+          <h3 class="tags-header">
+              Tags
+          </h3>
+          <ul class="tags-list"></ul>
+      </div>
+    </aside>
+  </div>
+  
+  <!-- Footer Section -->
+  <footer>
+    <p>&copy; 2024 Personal Blog. All rights reserved.</p>
+  </footer>
+  
+  <script src="../../js/script.js"></script>
+  <script src="../../js/tags.js"></script>
+  <script src="../../js/search.js"></script>
+  <script src="../../js/article-navigation.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/MathJax.js?config=TeX-AMS_HTML" async></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/highlight.min.js"></script>
+    <script>
+        hljs.highlightAll();
+    </script>
+</body>
+</html>

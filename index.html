@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Blog</title>
+    <!-- 保持使用原来的 style.css -->
+    <link rel="stylesheet" href="css/MainStyle.css">
+    <link rel="stylesheet" href="css/article-list.css">
+</head>
+<body>
+    <header>
+        <nav>
+            <ul>
+                <li><a href="index.html">Home</a></li>
+                <li><a href="AboutMe/aboutme.html">About Me</a></li>
+                <li class="dropdown">
+                    <a href="javascript:void(0);" class="dropbtn">Articles</a>
+                    <ul class="dropdown-content">
+                        <li><a href="Articles/Astronomy/_AstronomyMenu.html">Astronomy</a></li>
+                        <li><a href="Articles/Physics/_PhysicsMenu.html">Physics</a></li>
+                        <li><a href="Articles/Explorations/_ExplorationsMenu.html">Explorations</a></li>
+                    </ul>
+                </li>
+            </ul>
+        </nav>
+    </header>
+
+    <!-- 主内容区 -->
+    <div class="main-content">
+        <!-- Recent Articles 模块 -->
+        <section class="article-list">
+            <h1>Recent Articles</h1>
+            <ul>
+                
+            </ul>
+        </section>
+
+        <!-- 侧边栏 -->
+        <aside class="sidebar">
+        <!-- Search 模块 -->
+        <div class="search-container">
+            <h3>Search</h3>
+            <div class="search">
+                <form action="#" method="GET">
+                    <input type="text" name="search" placeholder="Search articles..." />
+                    <button type="submit">Search</button>
+                </form>
+            </div>
+        </div>
+
+            <!-- Tags 模块 -->
+            <div class="tags">
+                <h3 class="tags-header">
+                    Tags 
+                </h3>
+                <ul class="tags-list"></ul>
+            </div>
+        </aside>
+    </div>
+
+    <!-- 页脚 -->
+    <footer>
+        <p>&copy; 2024 Personal Blog. All rights reserved.</p>
+    </footer>
+
+    <!-- 引入独立的 JS 文件 -->
+    <script src="js/script.js"></script>
+    <script src="js/search.js"></script>
+    <script src="js/recent-articles.js"></script>
+    <script src="js/tags.js"></script>  <!-- 新增此行 -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/MathJax.js?config=TeX-AMS_HTML" async></script>
+</body>
+</html>
