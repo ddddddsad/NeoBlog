@@ -1,0 +1,60 @@
+pre code.python {
+    border-radius: 16px;
+    font-size: 14px;
+    margin-top: 0px;
+    margin-left: 10px;
+    margin-right: 10px;
+    margin-bottom: 4px;
+ }
+
+
+pre {
+    font-family: 'Consolas', 'Monaco', 'Lucida Console', 'Ubuntu Mono', monospace;
+    color: #f8f8f2;
+    padding: 5px;
+    margin: 10px 0;
+}
+
+code {
+    color: #f8f8f2;
+}
+
+
+/* 模型对比表格样式 */
+.model-comparison {
+    margin: 1.5rem 0;
+    box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+    border-radius: 8px;
+    overflow: hidden;
+}
+
+.model-table {
+    width: 100%;
+    border-collapse: collapse;
+    background: #fff;
+    font-size: 0.95em;
+}
+
+/* 修改表头颜色定义 */
+.model-table th {
+    background: #1a3658; /* 调整为深蓝色 */
+    color: #e3f2fd; /* 浅蓝色文字 */
+    font-weight: 500; /* 降低字重 */
+}
+
+/* 修正选中状态颜色 */
+.model-table tr:hover {
+    background-color: #e8f4fc; /* 浅蓝色背景 */
+    color: #1a3658; /* 保持深蓝色文字 */
+}
+
+/* 增加斑马纹明暗对比 */
+.model-table tr:nth-child(even) {
+    background-color: #f8fafc;
+}
+
+.model-table tr:hover {
+    background-color: #f1f5f9;
+    transition: background 0.2s ease;
+}
+
