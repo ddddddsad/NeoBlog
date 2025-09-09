@@ -1,0 +1,178 @@
+.article-navigation {
+    background-color: #fff;
+    padding: 15px 0;
+    display: flex;
+    flex-direction: column;
+    transition: max-height 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    max-height: 600px;
+    overflow-y: auto; /* 改为垂直滚动 */
+    overflow-x: hidden; /* 隐藏水平滚动 */
+    
+    /* 移除固定定位，使用相对定位 */
+    position: sticky;
+    top: 98px;
+    width: 300px;
+    z-index: 1000;
+
+    border-radius: 8px;
+    box-shadow: 0 0 15px rgba(0, 0, 0, 0.1);
+}
+
+.article-navigation.collapsed {
+    max-height: 36px; /* 更紧凑的折叠高度 */
+    overflow: hidden; /* 折叠时隐藏滚动条 */
+}
+
+.article-navigation ul {
+    list-style-type: none;
+    padding: 0;
+    margin: 0;
+}
+
+.article-navigation.collapsed ul {
+    opacity: 0;
+    pointer-events: none;
+}
+
+/* 使用细线分割标题 */
+.article-navigation ul h2 {
+    font-size: 13px;
+    font-weight: 500;
+    letter-spacing: 0.5px;
+    margin: 16px 0 8px;
+    padding-bottom: 4px;
+    border-bottom: 1px solid #eee; /* 细线分割 */
+}
+
+.article-navigation ul h3 {
+    font-size: 12px;
+    margin-left: 16px;
+    position: relative; /* 为装饰线准备 */
+}
+
+
+.toggleArea {
+    font-size: 24px;
+    font-weight: 600;
+    cursor: pointer;
+    padding: 12px 0;
+    background: none;
+    color: #1a1a1a;
+    text-align: left;
+    margin-left: 16px;
+    margin-bottom: 4px;
+    position: relative;
+    transition: color 0.2s ease;
+}
+
+#toc a {
+    color: #333;
+    font-weight: 400;
+    transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1); /* 过渡效果 */
+    position: relative;
+    display: inline-block;
+}
+
+#toc a.active {
+    color: #b30000;
+    font-weight: 500;
+    position: relative;
+    transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1)
+}
+
+/* 当前章节指示线 */
+#toc a.active::after {
+    content: "";
+    position: absolute;
+    left: -8px;
+    top: 50%;
+    transform: translateY(-50%);
+    height: 120%;
+    width: 2px;
+    background: #b30000;
+    transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1)
+}
+
+/* 标签悬停动效 */
+#toc a:hover {
+    color: #b30000;
+    transform: translateX(4px);
+    text-decoration: underline;
+    text-decoration-thickness: 1px;
+    text-underline-offset: 2px;
+    transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1)
+}
+
+/* 在原有基础上新增悬浮效果 */
+.article-navigation {
+    transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    will-change: transform;
+}
+
+/* 鼠标悬浮时产生微妙的位移 */
+.article-navigation:not(.collapsed):hover {
+    transform: translateX(8px);
+}
+
+/* 章节标题悬浮效果 */
+.article-navigation ul h2 {
+    transition: border-color 0.2s ease;
+}
+
+.article-navigation ul h2:hover {
+    border-color: #ddd; /* 更柔和的交互反馈 */
+}
+
+
+.article-navigation {
+    padding: 12px 0; /* 移除左右内边距 */
+}
+
+/* 调整章节文字间距 */
+.article-navigation ul {
+    padding: 0 8px; /* 控制内容左右边距 */
+}
+
+/* 高亮章节样式强化 */
+#toc a.active {
+    color: #b30000;
+    font-weight: 600; /* 更明显的加粗 */
+    transform: translateX(4px); /* 添加位移效果 */
+}
+
+/* 章节标题对齐优化 */
+.article-navigation ul h2 {
+    margin: 16px 0 8px;
+    padding: 0 8px; /* 与内容区域对齐 */
+}
+
+.article-navigation ul h3 {
+    margin-left: 8px; /* 减少缩进量 */
+    padding: 0 8px; /* 保持内容对齐 */
+}
+
+/* 自定义滚动条样式 */
+.article-navigation::-webkit-scrollbar {
+    width: 6px;
+}
+
+.article-navigation::-webkit-scrollbar-track {
+    background: #f1f1f1;
+    border-radius: 3px;
+}
+
+.article-navigation::-webkit-scrollbar-thumb {
+    background: #c1c1c1;
+    border-radius: 3px;
+    transition: background 0.2s ease;
+}
+
+.article-navigation::-webkit-scrollbar-thumb:hover {
+    background: #a8a8a8;
+}
+
+/* Firefox 滚动条样式 */
+.article-navigation {
+    scrollbar-width: thin;
+    scrollbar-color: #c1c1c1 #f1f1f1;
+}

@@ -1,0 +1,169 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>About Me</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/default.min.css">
+    <link rel="stylesheet" href="../css/MainStyle.css">
+    <link rel="stylesheet" href="../css/article-list.css">
+    <link rel="stylesheet" href="../css/article-navigation.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <link rel="stylesheet" href="../css/codeBlock.css">
+</head>
+<body>
+    <!-- Header Section -->
+    <header>
+        <nav>
+            <ul>
+                <li><a href="../index.html">Home</a></li>
+                <li><a href="aboutme.html">About Me</a></li>
+                <li class="dropdown">
+                    <a href="javascript:void(0);" class="dropbtn">Articles</a>
+                    <ul class="dropdown-content">
+                        <li><a href="../Articles/Astronomy/_AstronomyMenu.html">Astronomy</a></li>
+                        <li><a href="../Articles/Physics/_PhysicsMenu.html">Physics</a></li>
+                        <li><a href="../Articles/Explorations/_ExplorationsMenu.html">Explorations</a></li>
+                    </ul>
+                </li>
+            </ul>
+        </nav>
+    </header>
+
+    <div class="main-content">
+        <!-- 左侧边栏 -->
+        <aside class="left-sidebar">
+            <!-- Articles Navigation 模块 -->
+            <div class="article-navigation">
+                <div class="toggleArea">☰ Menu</div>
+                <ul id="toc">
+                    <!-- 目录将在这里生成 -->
+                </ul>
+            </div>
+        </aside>
+        <article class="article-content">
+            <h1>About Me</h1>
+            <div class="meta-info">
+                <div class="article-tags">
+                    <a href="#">Astronomy</a>
+                    <a href="#">Science</a>
+                    <a href="#">Code</a>
+                </div>
+                <div class="publish-date">2024-10-16 17:19:18</div>
+            </div>
+            
+            <!-- 新增个人简介 -->
+            <section class="profile-section">
+                <p>欢迎来到我的学术博客！我是董灏哲，中国科学技术大学天文系准研究生，主要研究方向为活动星系核（AGN）的多波段辐射机制与数值建模。</p>
+                
+                <h2>教育背景</h2>
+                <ul class="education-list">
+                    <li>中国科学技术大学 · 天文系 · 研究生（2025-至今）</li>
+                    <li>山东大学 · 空间科学与技术学院 · 本科（2021-2025）</li>
+                </ul>
+
+                <h2>研究方向</h2>
+                <div class="research-interests">
+                    <ul>
+                        <li>吸积盘辐射传输模型</li>
+                        <li>宽线区动力学模拟</li>
+                        <li>多波段光谱能量分布拟合</li>
+                        <li>相对论喷流数值计算</li>
+                    </ul>
+                </div>
+            </section>
+
+            <!-- 项目经验 -->
+            <section class="projects-section">
+                <h2>近期项目</h2>
+                <div class="project-item">
+                    <h3>AGN光谱合成框架开发</h3>
+                    <p>基于Python构建模块化辐射传输代码库，整合：
+                        <ul>
+                            <li>吸积盘黑体辐射积分器</li>
+                            <li>尘埃环蒙特卡洛光子追踪模块</li>
+                            <li>相对论喷流同步辐射计算器</li>
+                        </ul>
+                    </p>
+                </div>
+            </section>
+
+            <!-- 主要论文工作 -->
+            <section class="publications-section">
+                <h2>主要论文工作</h2>
+                <div class="publication-item">
+                    <p class="publication-citation">
+                        Jin L, Chen J, Wang Y, Yu L, <strong>Dong H</strong> et al. Global picture of lunar basalt chronology based on the automatic classification of craters[J]. <a href="https://essopenarchive.org/users/889308/articles/1266745-global-picture-of-lunar-basalt-chronology-based-on-the-automatic-classification-of-craters?commit=1409f55782673705f4f974e6876ed1adc5e948c1" target="_blank" class="publication-link">Authorea Preprints, 2025</a>.
+                    </p>
+                </div>
+            </section>
+
+            <p>            
+                <a class="back-button" href="../index.html">Back to Homepage</a>
+            </p>
+        </article>
+    <!-- 右侧边栏 -->
+    <aside class="right-sidebar">
+        <!-- Search 模块 -->
+         <div class="search-container">
+            <h3>Search</h3>
+            <div class="search">
+                <form action="../SearchResultsPage.html" method="GET" id="search-form">
+                    <!-- 搜索选项 -->
+                    <div class="search-options">
+                        <label class="search-option">
+                            <input type="radio" name="searchType" value="title" checked>
+                            <span>Title</span>
+                        </label>
+                        <label class="search-option">
+                            <input type="radio" name="searchType" value="tags">
+                            <span>Tags</span>
+                        </label>
+                        <label class="search-option">
+                            <input type="radio" name="searchType" value="content">
+                            <span>Content</span>
+                        </label>
+                    </div>
+                    <div class="search-input-group">
+                        <input type="text" name="search" id="search-input" placeholder="Search articles..." />
+                        <button type="submit">Search</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+        <!-- Tags 模块 -->
+        <div class="tags">
+            <h3 class="tags-header">
+                Tags
+            </h3>
+            <ul class="tags-list"></ul>
+        </div>
+    </div>
+
+    <!-- Footer Section -->
+    <footer>
+        <div class="footer-content">
+            <div class="contact-links">
+                <a href="https://space.bilibili.com/7366309?spm_id_from=333.1007.0.0" target="_blank" rel="noopener noreferrer">
+                    <i class="fas fa-play-circle"></i> Bilibili
+                </a>
+                <a href="https://github.com/ddddddsad?tab=repositories" target="_blank" rel="noopener noreferrer">
+                    <i class="fab fa-github"></i> GitHub
+                </a>
+                <a href="mailto:donhaozhe@gmail.com">
+                    <i class="fas fa-envelope"></i> Gmail
+                </a>
+            </div>
+            <p>&copy; 2024 Personal Blog. All rights reserved.</p>
+        </div>
+    </footer>
+
+    <!-- 引入独立的 JS 文件 -->
+    <script src="../js/script.js"></script>
+    <script src="../js/search.js"></script>
+    <script src="../js/recent-articles.js"></script>
+    <script src="../js/tags.js"></script>
+    <script src="../js/article-navigation.js"></script>  <!-- 添加文章导航脚本 -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/MathJax.js?config=TeX-AMS_HTML" async></script>
+</body>
+</html>

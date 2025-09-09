@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Graduation Design</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/default.min.css">
+    <link rel="stylesheet" href="../../css/MainStyle.css">
+    <link rel="stylesheet" href="../../css/article-list.css">
+    <link rel="stylesheet" href="../../css/article-navigation.css">
+    <link rel="stylesheet" href="../../css/codeBlock.css">
+</head>
+<body>
+    <!-- Header Section -->
+    <header>
+        <nav>
+            <ul>
+                <li><a href="../../index.html">Home</a></li>
+                <li><a href="../../AboutMe/aboutme.html">About Me</a></li>
+                <li class="dropdown">
+                    <a href="javascript:void(0);" class="dropbtn">Articles</a>
+                    <ul class="dropdown-content">
+                        <li><a href="../Astronomy/_AstronomyMenu.html">Astronomy</a></li>
+                        <li><a href="../Physics/_PhysicsMenu.html">Physics</a></li>
+                        <li><a href="../Explorations/_ExplorationsMenu.html">Explorations</a></li>
+                    </ul>
+                </li>
+            </ul>
+        </nav>
+    </header>
+
+    <div class="main-content">
+        <!-- 左侧边栏 -->
+        <aside class="left-sidebar">
+            <!-- Articles Navigation 模块 -->
+            <div class="article-navigation">
+                <div class="toggleArea">☰ Menu</div>
+                <ul id="toc">
+                    <!-- 目录将在这里生成 -->
+                </ul>
+            </div>
+        </aside>
+        <article class="article-content">
+            <h1>Graduation Design</h1>
+            <div class="meta-info">
+                <div class="article-tags">
+                    <a href="#">Astronomy</a>
+                    <a href="#">Science</a>
+                    <a href="#">Code</a>
+                </div>
+                <div class="publish-date">2024-10-16 17:19:18</div>
+            </div>
+            <p>
+                A Conclusion of my Graduation Design.
+            </p>
+            <p>            
+                <a class="back-button" href="_ExplorationsMenu.html">Back to Explorations Articles</a>
+            </p>
+        </article>
+    <!-- 右侧边栏 -->
+    <aside class="right-sidebar">
+        <!-- Search 模块 -->
+        <div class="search-container">
+            <h3>Search</h3>
+            <div class="search">
+                <form action="../../SearchResultsPage.html" method="GET" id="search-form">
+                    <!-- 搜索选项 -->
+                    <div class="search-options">
+                        <label class="search-option">
+                            <input type="radio" name="searchType" value="title" checked>
+                            <span>Title</span>
+                        </label>
+                        <label class="search-option">
+                            <input type="radio" name="searchType" value="tags">
+                            <span>Tags</span>
+                        </label>
+                        <label class="search-option">
+                            <input type="radio" name="searchType" value="content">
+                            <span>Content</span>
+                        </label>
+                    </div>
+                    <div class="search-input-group">
+                        <input type="text" name="search" id="search-input" placeholder="Search articles..." />
+                        <button type="submit">Search</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+        <!-- Tags 模块 -->
+        <div class="tags">
+          <h3 class="tags-header">
+              Tags
+          </h3>
+          <ul class="tags-list"></ul>
+      </div>
+    </aside>
+  </div>
+  
+  <!-- Footer Section -->
+  <footer>
+    <p>&copy; 2024 Personal Blog. All rights reserved.</p>
+  </footer>
+  
+  <script src="../../js/script.js"></script>
+  <script src="../../js/tags.js"></script>
+  <script src="../../js/search.js"></script>
+  <script src="../../js/article-navigation.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/MathJax.js?config=TeX-AMS_HTML" async></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/highlight.min.js"></script>
+    <script>
+        hljs.highlightAll();
+    </script>
+</body>
+</html>

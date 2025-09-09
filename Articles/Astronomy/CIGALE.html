@@ -1,0 +1,216 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SED拟合指南</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/default.min.css">
+    <link rel="stylesheet" href="../../css/MainStyle.css">
+    <link rel="stylesheet" href="../../css/article-list.css">
+    <link rel="stylesheet" href="../../css/article-navigation.css">
+    <link rel="stylesheet" href="../../css/codeBlock.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+</head>
+<body>
+    <!-- Header Section -->
+    <header>
+        <nav>
+            <ul>
+                <li><a href="../../index.html">Home</a></li>
+                <li><a href="../../AboutMe/aboutme.html">About Me</a></li>
+                <li class="dropdown">
+                    <a href="javascript:void(0);" class="dropbtn">Articles</a>
+                    <ul class="dropdown-content">
+                        <li><a href="../Astronomy/_AstronomyMenu.html">Astronomy</a></li>
+                        <li><a href="../Physics/_PhysicsMenu.html">Physics</a></li>
+                        <li><a href="../Explorations/_ExplorationsMenu.html">Explorations</a></li>
+                    </ul>
+                </li>
+            </ul>
+        </nav>
+    </header>
+
+    <div class="main-content">
+        <!-- 左侧边栏 -->
+        <aside class="left-sidebar">
+            <!-- Articles Navigation 模块 -->
+            <div class="article-navigation">
+                <div class="toggleArea">☰ Menu</div>
+                <ul id="toc">
+                    <!-- 目录将在这里生成 -->
+                </ul>
+            </div>
+        </aside>
+        
+        <article class="article-content">
+            <h1>SED拟合指南</h1>
+            <div class="meta-info">
+                <div class="article-tags">
+                    <a href="#">Astronomy</a>
+                    <a href="#">SED Fitting</a>
+                    <a href="#">Data Analysis</a>
+                </div>
+                <div class="publish-date">2024-12-10 13:34:42</div>
+            </div>
+
+            <div class="comment-box">
+                <strong>简介：</strong>SED（Spectral Energy Distribution，光谱能量分布）拟合是天体物理研究中的重要工具，用于分析天体的物理性质和演化状态。本文将介绍SED拟合的基本概念、方法和应用。
+            </div>
+
+            <h2>1. SED拟合基础概念</h2>
+            <p>SED拟合是通过比较观测到的多波段光度数据与理论模型，来推断天体的物理参数的过程。主要包括：</p>
+            <ul>
+                <li><strong>恒星形成历史</strong>：星系的恒星形成率和年龄</li>
+                <li><strong>尘埃消光</strong>：星际介质对光的吸收和散射</li>
+                <li><strong>尘埃发射</strong>：尘埃颗粒的热辐射</li>
+                <li><strong>AGN贡献</strong>：活动星系核的辐射</li>
+            </ul>
+
+            <h2>2. 基本工作流程</h2>
+            
+            <h3>2.1 数据准备</h3>
+            <p>SED拟合需要多波段的光度数据，通常包括：</p>
+            <div class="code-block">
+                <div class="code-header">数据格式示例</div>
+                <pre><code class="language-text"># 波长(μm)  流量(mJy)  误差(mJy)
+0.36         2.5        0.3
+0.44         3.2        0.4
+0.55         4.1        0.5
+0.70         5.8        0.7
+1.25         8.9        1.1
+2.20         12.3       1.5
+3.60         15.7       2.0</code></pre>
+            </div>
+
+            <h3>2.2 模型选择</h3>
+            <p>选择合适的物理模型来描述天体辐射：</p>
+            <ul>
+                <li><strong>恒星模型</strong>：如Bruzual-Charlot (BC03)</li>
+                <li><strong>尘埃模型</strong>：如Dale et al. (2014)</li>
+                <li><strong>AGN模型</strong>：如Fritz et al. (2006)</li>
+            </ul>
+
+            <h3>2.3 参数拟合</h3>
+            <p>通过最小化χ²来找到最佳拟合参数：</p>
+            <div class="code-block">
+                <div class="code-header">拟合公式</div>
+                <pre><code class="language-text">χ² = Σ[(F_obs - F_model)² / σ²]
+
+其中：
+F_obs: 观测流量
+F_model: 模型预测流量
+σ: 观测误差</code></pre>
+            </div>
+
+            <h2>3. 常用参数说明</h2>
+            <div class="comment-box">
+                <strong>关键参数：</strong>理解这些参数的含义对于正确解释拟合结果至关重要。
+            </div>
+            
+            <ul>
+                <li><strong>τ_main</strong>: 恒星形成时标，反映恒星形成历史的特征时间</li>
+                <li><strong>age</strong>: 星系年龄，从恒星形成开始到现在的时间</li>
+                <li><strong>E(B-V)</strong>: 尘埃消光，表示星际介质对光的吸收程度</li>
+                <li><strong>α</strong>: 尘埃发射谱指数，反映尘埃颗粒的温度分布</li>
+            </ul>
+
+            <h2>4. 结果分析</h2>
+            <p>SED拟合完成后，需要分析以下方面：</p>
+            <ol>
+                <li><strong>拟合质量</strong>：检查χ²值和残差分布</li>
+                <li><strong>参数可靠性</strong>：分析参数的后验概率分布</li>
+                <li><strong>物理合理性</strong>：验证参数值是否在物理允许范围内</li>
+                <li><strong>模型选择</strong>：比较不同模型的拟合效果</li>
+            </ol>
+
+            <div class="comment-box">
+                <strong>注意事项：</strong>SED拟合是一个迭代过程，可能需要多次调整模型和参数才能得到满意的结果。建议从简单模型开始，逐步增加复杂度。
+            </div>
+
+            <h2>5. 应用实例</h2>
+            <p>SED拟合在天体物理研究中有广泛应用：</p>
+            <ul>
+                <li><strong>星系演化</strong>：研究星系的恒星形成历史和尘埃性质</li>
+                <li><strong>AGN研究</strong>：分析活动星系核的辐射特性和环境</li>
+                <li><strong>高红移天体</strong>：探索早期宇宙中的天体性质</li>
+                <li><strong>星系团</strong>：研究星系团成员星系的物理特性</li>
+            </ul>
+            
+            <p>            
+                <a class="back-button" href="_AstronomyMenu.html">Back to Astronomy Articles</a>
+            </p>
+        </article>
+
+        <!-- 右侧边栏 -->
+        <aside class="right-sidebar">
+            <!-- Search 模块 -->
+            <div class="search-container">
+                <h3>Search</h3>
+                <div class="search">
+                    <form action="../../SearchResultsPage.html" method="GET" id="search-form">
+                        <!-- 搜索选项 -->
+                        <div class="search-options">
+                            <label class="search-option">
+                                <input type="radio" name="searchType" value="title" checked>
+                                <span>Title</span>
+                            </label>
+                            <label class="search-option">
+                                <input type="radio" name="searchType" value="tags">
+                                <span>Tags</span>
+                            </label>
+                            <label class="search-option">
+                                <input type="radio" name="searchType" value="content">
+                                <span>Content</span>
+                            </label>
+                        </div>
+                        <div class="search-input-group">
+                            <input type="text" name="search" id="search-input" placeholder="Search articles..." />
+                            <button type="submit">Search</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+            
+            <!-- Tags 模块 -->
+            <div class="tags">
+                <h3 class="tags-header">Tags</h3>
+                <ul class="tags-list"></ul>
+            </div>
+        </aside>
+    </div>
+    
+    <!-- Footer Section -->
+        <footer>
+        <div class="footer-content">
+            <div class="contact-links">
+                <a href="https://space.bilibili.com/7366309?spm_id_from=333.1007.0.0" target="_blank" rel="noopener noreferrer">
+                    <i class="fas fa-play-circle"></i> Bilibili
+                </a>
+                <a href="https://github.com/ddddddsad?tab=repositories" target="_blank" rel="noopener noreferrer">
+                    <i class="fab fa-github"></i> GitHub
+                </a>
+                <a href="mailto:donhaozhe@gmail.com">
+                    <i class="fas fa-envelope"></i> Gmail
+                </a>
+            </div>
+            <p>&copy; 2024 Personal Blog. All rights reserved.</p>
+        </div>
+    </footer>
+    
+    <script src="../../js/script.js"></script>
+    <script src="../../js/tags.js"></script>
+    <script src="../../js/search.js"></script>
+    <script src="../../js/article-navigation.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/MathJax.js?config=TeX-AMS_HTML" async></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/highlight.min.js"></script>
+    <script>
+        // 配置highlight.js
+        hljs.configure({
+            languages: ['text', 'python', 'bash']
+        });
+        
+        // 高亮所有代码块
+        hljs.highlightAll();
+    </script>
+</body>
+</html>

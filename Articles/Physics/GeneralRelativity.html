@@ -1,0 +1,195 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>General Relativity</title>
+    <link rel="stylesheet" href="../../css/MainStyle.css">
+    <link rel="stylesheet" href="../../css/article-list.css">
+    <link rel="stylesheet" href="../../css/article-navigation.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+</head>
+<body>
+    <!-- Header Section -->
+    <header>
+        <nav>
+            <ul>
+                <li><a href="../../index.html">Home</a></li>
+                <li><a href="../../AboutMe/aboutme.html">About Me</a></li>
+                <li class="dropdown">
+                    <a href="javascript:void(0);" class="dropbtn">Articles</a>
+                    <ul class="dropdown-content">
+                        <li><a href="../Astronomy/_AstronomyMenu.html">Astronomy</a></li>
+                        <li><a href="../Physics/_PhysicsMenu.html">Physics</a></li>
+                        <li><a href="../Explorations/_ExplorationsMenu.html">Explorations</a></li>
+                    </ul>
+                </li>
+            </ul>
+        </nav>
+    </header>
+
+    <div class="main-content">
+        <!-- 左侧边栏 -->
+        <aside class="left-sidebar">
+            <!-- Articles Navigation 模块 -->
+            <div class="article-navigation">
+                <div class="toggleArea">☰ Menu</div>
+                <ul id="toc">
+                    <!-- 目录将在这里生成 -->
+                </ul>
+            </div>
+        </aside>
+        <article class="article-content">
+            <h1>General Relativity</h1>
+            <div class="meta-info">
+                <div class="article-tags">
+                    <a href="#">Physics</a>
+                    <a href="#">Basics</a>
+                </div>
+                <div class="publish-date">2024-9-26 19:08:16</div>
+            </div>
+            <h2>Foreword</h2>
+            <p>
+                This is a personal-written article about General Relativity which is basically for myself.
+            </p>
+            <h2>Metric Tensor, Connection, and the Einstein Field Equations</h2>
+            <h3>The Relation Between Metric \(g_{ij}\) and Connection \(C^i_{kl}\)</h3>
+            <p>
+                In a general manifold, we can define the line element \(ds\) as:
+            </p>
+            <p>
+                \[
+                ds^2 = g_{ij} \, dx^i \, dx^j
+                \]
+            </p>
+            <p>
+                When a tensor field \( A^i \) moves from one point \( x^i \) to a nearby point \( x^i + dx^i \), its change is not simply given by the ordinary differential \( dA^i \). It also involves a correction due to the connection, which reflects the curvature of the space. This correction is captured by the connection coefficients \( C^i_{kl} \), and the total change can be written as:
+            </p>
+            <p>
+                \[
+                DA^i = dA^i - \delta A^i = \frac{\partial A^i}{\partial x^l} \, dx^l - C^i_{kl} A^k \, dx^l
+                \]
+            </p>
+            <p>
+                Now, we want to determine the exact form of \(C^i_{kl}\), which is related to the metric.
+            </p>
+            <p>
+                The metric can be used to lower indices: \( A_i = g_{ij} A^j \), and \( DA_i = g_{ij} DA^j \). Moreover, \( DA_i \) can also be written as \( D(g_{ij} A^j) \).
+            </p>
+            <p>
+                From this, we find that \( Dg_{ij} = 0 \).
+            </p>
+            <p>
+                The variation of the metric with respect to \( x^l \) should follow the relation:
+            </p>
+            <p>
+                \[
+                \frac{\partial g_{ij}}{\partial x^l} = C^k_{il} g_{kj} + C^k_{jl} g_{ik}
+                \]
+            </p>            
+            <p>
+                Following by a symmetrization operation, 
+            </p>
+            <p>
+                \[
+                (\frac{\partial g_{ij}}{\partial x^l} + \frac{\partial g_{il}}{\partial x^j} - \frac{\partial g_{jl}}{\partial x^i}) = 2C^k_{il}g_{kj}
+                \]
+            </p>
+            <p>
+                We can see that the connection coefficients \( C^k_{il} \) are related to the metric by the following equation:
+            </p>
+            <p>
+                \[
+                C^k_{il} = \frac{1}{2} g^{kj} \left( \frac{\partial g_{ij}}{\partial x^l} + \frac{\partial g_{jl}}{\partial x^i} - \frac{\partial g_{il}}{\partial x^j} \right)
+                \]
+            </p>
+            <h3>The Einstein Field Equations</h3>
+            <p>
+                The Einstein Field Equations are a set of equations that describe the behavior of a tensor field in a general relativistic field. They are derived from the principle of least action, which states that the action of a tensor field on a stationary observer is independent of the path taken by the observer.
+            </p>
+            <p>
+                The Einstein Field Equations are:
+            </p>
+            <p>
+                \[  
+                R_{\mu\nu} - \frac{1}{2} g_{\mu\nu} R = 8 \pi T_{\mu\nu}
+                \]
+            </p>
+            <p>
+                \[  
+                \frac{1}{2} g_{\mu\nu} \left( \frac{\partial}{\partial x^i} \frac{\partial}{\partial x^j} - \frac{\partial}{\partial x^j} \frac{\partial}{\partial x^i} \right) R = \frac{8\pi}{c} \delta_{\mu\nu}
+                \]
+            </p>
+            <p>
+                The first equation is the Einstein-Maxwell equation, which relates the radiation tensor \(R_{\mu\nu}\) to the stress-energy tensor \(T_{\mu\nu}\). The second equation is the Ricci curvature equation, which relates the Ricci tensor to the Riemann curvature tensor.
+            </p>
+            <p>
+                The Einstein Field Equations are the most important equations in general relativity, and they are used to determine the behavior of gravitational, electromagnetic, and strong-field forces.
+            </p>
+            <a class="back-button" href="../../Articles/Physics/_PhysicsMenu.html">Back to Physics Articles</a>
+        </article>
+    <!-- 右侧边栏 -->
+    <aside class="right-sidebar">
+        <!-- Search 模块 -->
+        <div class="search-container">
+          <h3>Search</h3>
+          <div class="search">
+              <form action="../../SearchResultsPage.html" method="GET" id="search-form">
+                  <!-- 搜索选项 -->
+                  <div class="search-options">
+                      <label class="search-option">
+                          <input type="radio" name="searchType" value="title" checked>
+                          <span>Title</span>
+                      </label>
+                      <label class="search-option">
+                          <input type="radio" name="searchType" value="tags">
+                          <span>Tags</span>
+                      </label>
+                      <label class="search-option">
+                          <input type="radio" name="searchType" value="content">
+                          <span>Content</span>
+                      </label>
+                  </div>
+                  <div class="search-input-group">
+                      <input type="text" name="search" id="search-input" placeholder="Search articles..." />
+                      <button type="submit">Search</button>
+                  </div>
+              </form>
+          </div>
+      </div>
+        <!-- Tags 模块 -->
+        <div class="tags">
+          <h3 class="tags-header">
+              Tags
+          </h3>
+          <ul class="tags-list"></ul>
+      </div>
+    </aside>
+  </div>
+  
+  <!-- Footer Section -->
+      <footer>
+        <div class="footer-content">
+            <div class="contact-links">
+                <a href="https://space.bilibili.com/7366309?spm_id_from=333.1007.0.0" target="_blank" rel="noopener noreferrer">
+                    <i class="fas fa-play-circle"></i> Bilibili
+                </a>
+                <a href="https://github.com/ddddddsad?tab=repositories" target="_blank" rel="noopener noreferrer">
+                    <i class="fab fa-github"></i> GitHub
+                </a>
+                <a href="mailto:donhaozhe@gmail.com">
+                    <i class="fas fa-envelope"></i> Gmail
+                </a>
+            </div>
+            <p>&copy; 2024 Personal Blog. All rights reserved.</p>
+        </div>
+    </footer>
+  
+  <script src="../../js/script.js"></script>
+  <script src="../../js/tags.js"></script>
+  <script src="../../js/search.js"></script>
+  <script src="../../js/article-navigation.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/MathJax.js?config=TeX-AMS_HTML" async></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/highlight.min.js"></script>
+</body>
+</html>

@@ -1,2 +1,1 @@
 # NeoBlog
-Personal Blog.

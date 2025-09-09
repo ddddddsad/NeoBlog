@@ -1,0 +1,386 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>GalaxyCode_general</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/default.min.css">
+    <link rel="stylesheet" href="../../css/MainStyle.css">
+    <link rel="stylesheet" href="../../css/article-list.css">
+    <link rel="stylesheet" href="../../css/article-navigation.css">
+    <link rel="stylesheet" href="../../css/codeBlock.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+</head>
+<body>
+    <!-- Header Section -->
+    <header>
+        <nav>
+            <ul>
+                <li><a href="../../index.html">Home</a></li>
+                <li><a href="../../AboutMe/aboutme.html">About Me</a></li>
+                <li class="dropdown">
+                    <a href="javascript:void(0);" class="dropbtn">Articles</a>
+                    <ul class="dropdown-content">
+                        <li><a href="../Astronomy/_AstronomyMenu.html">Astronomy</a></li>
+                        <li><a href="../Physics/_PhysicsMenu.html">Physics</a></li>
+                        <li><a href="../Explorations/_ExplorationsMenu.html">Explorations</a></li>
+                    </ul>
+                </li>
+            </ul>
+        </nav>
+    </header>
+
+    <div class="main-content">
+        <!-- 左侧边栏 -->
+        <aside class="left-sidebar">
+            <!-- Articles Navigation 模块 -->
+            <div class="article-navigation">
+                <div class="toggleArea">☰ Menu</div>
+                <ul id="toc">
+                    <!-- 目录将在这里生成 -->
+                </ul>
+            </div>
+        </aside>
+        <article class="article-content">
+            <h1>类星体多波段光谱能量分布的物理建模</h1>
+            <div class="meta-info">
+                <div class="article-tags">
+                    <a href="#">Astrophysics</a>
+                    <a href="#">AGN</a>
+                    <a href="#">Radiation Mechanisms</a>
+                </div>
+                <div class="publish-date">2025-4-9 19:38:16</div>
+            </div>
+            
+            <h2>1. Introduction</h2>
+            <p>
+                经典类星体表现出从射电到伽马射线的宽波段辐射，这些辐射产生于活动星系核（AGN）中不同区域的独特物理过程。
+                本文提出了一种基于第一性原理的方法来建模它们的光谱能量分布（SED），而不依赖于现象学的幂律近似。
+            </p>
+            
+            <h2>2.1 Accretion Disk</h2>
+            <p>
+                通过求解基本的质量、动量、角动量与能量守恒方程组，在不同物理近似下得到的吸积解，
+                我们可以实现从标准薄盘、ADAF、LHAF 到 Slim Disk 的连续过渡，并进而推导出各自的多波段辐射谱。
+                这种统一的辐射积分框架连接了动力学与辐射过程，有助于对观测数据进行自洽解释。
+            </p>
+            <p>
+                以下从最一般的流体方程组出发，依次描述经典薄盘、相对论薄盘、Slim Disk 和 ADAF 模型如何在一系列假设下将原始方程组简化，并给出各自的连续谱。
+            </p>
+            <h3>一般流体方程组</h3>
+            <p>采用柱坐标 \((r,\phi,z)\)，中心质量 \(\boldsymbol{M}\)。设密度 \(\boldsymbol{\rho}\)、速度 \(\boldsymbol{v}=(v_r,v_\phi,v_z)\)、压强 \(\boldsymbol{P}\)、牛顿势 \(\Phi=-GM/\sqrt{r^2+z^2}\)，应力张量 \(\boldsymbol{T}\)（含黏滞），辐射能流 \(\boldsymbol{F}_\mathrm{rad}\)，体热源/汇 \(\boldsymbol{q}\)。首先是质量守恒：</p>
+            <p>质量守恒公式：</p>
+            <div>
+              \begin{aligned}
+              \frac{\partial \rho}{\partial t}+\nabla\cdot(\rho\boldsymbol{v})=0
+              \end{aligned}
+            </div>
+            <p>动量守恒包括径向和角动量分量，径向动量方程写为：</p>
+            <div>
+              \begin{aligned}
+              \rho\Bigl(\frac{\partial v_r}{\partial t} + v_r\frac{\partial v_r}{\partial r} - \frac{v_{\phi}^2}{r}\Bigr)
+              = -\frac{\partial P}{\partial r} - \rho\frac{GM}{r^2} + (\nabla\cdot\boldsymbol{T})_r.
+              \end{aligned}
+            </div>
+            <p>角动量守恒则为：</p>
+            <div>
+              \begin{aligned}
+              \rho\frac{\partial}{\partial t}(r v_{\phi}) + \rho\,v_r\frac{\partial}{\partial r}(r v_{\phi})
+              = (\nabla\cdot\boldsymbol{T})_{\phi}.
+              \end{aligned}
+            </div>
+            <p>能量方程可写为：</p>
+            <div>
+              \begin{aligned}
+              \rho T\Bigl(\frac{\partial s}{\partial t} + \boldsymbol{v}\cdot\nabla s\Bigr)
+              = Q^+ - Q^-.
+              \end{aligned}
+            </div>
+          
+            <h3>经典薄盘：Shakura–Sunyaev（SS73，牛顿势）</h3>
+            <p>Kepler 自转 \(\Omega\simeq\Omega_K\)，\(|v_r|\ll v_\phi\)，几何薄 \(H\ll r\)，局域能量平衡 \(Q_\mathrm{adv}\to 0\)，<strong>内边界零扭矩</strong>（近似在 \(r_\mathrm{in}\approx r_\mathrm{ISCO}\) 处应力消失；牛顿势下常取 \(r_\mathrm{in}\) 常数）。得到面辐射通量：</p>
+            <div>
+              \[
+              F(r)=\sigma T_\mathrm{eff}^4(r)
+              =\frac{3GM\dot M}{8\pi r^3}\left[1-\left(\frac{r_\mathrm{in}}{r}\right)^{1/2}\right].
+              \]
+            </div>
+            <p>有效温度廓线</p>
+            <div>
+              \[
+              T_\mathrm{eff}(r)=\left[\frac{3GM\dot M}{8\pi\sigma r^3}\left(1-\sqrt{\frac{r_\mathrm{in}}{r}}\right)\right]^{1/4}
+              \propto r^{-3/4}\quad (r\gg r_\mathrm{in}).
+              \]
+            </div>
+            <p>尺度高度</p>
+            <div>
+              \[
+              H\simeq \frac{c_s}{\Omega_K},\quad c_s^2=\frac{\Pi}{\Sigma}\quad
+              (\text{由辐射/气体压与不透明度闭合}).
+              \]
+            </div>
+            <p>黏滞给出的径向速度与表面密度</p>
+            <div>
+              \[
+              v_r\simeq -\frac{3\nu}{2r},\quad \nu=\alpha c_s H,\quad
+              \Sigma = \frac{\dot M}{3\pi \nu}\left[1-\left(\frac{r_\mathrm{in}}{r}\right)^{1/2}\right]^{-1}.
+              \]
+            </div>
+            <p>在 SS73 中，还会按主导压强/不透明度分“区域 A/B/C”，但谱形主要由 \(T_\mathrm{eff}(r)\) 决定。</p>
+            <p>总光度和辐射效率就是对整个面的积分</p>
+            <div>
+              \[
+              L=\int 2\pi r\cdot 2F(r)\,dr \simeq \eta \dot M c^2,\quad \eta\simeq \frac{GM}{2r_\mathrm{in}c^2}\quad(\text{牛顿近似}).
+              \]
+            </div>
+            <p>而面向观测的谱\(F_{\nu}\)（多色黑体，MCD）</p>
+            <div>
+              \[
+              F_\nu=\frac{\cos i}{D^2}\int_{r_\mathrm{in}}^{r_\mathrm{out}} 2\pi r\, B_\nu\!\left[T_\mathrm{eff}(r)\right]\,dr,
+              \]
+              \[
+              B_\nu(T)=\frac{2h\nu^3}{c^2}\frac{1}{e^{h\nu/kT}-1}.
+              \]
+            </div>
+            <p>低频极限（大量半径贡献）给出著名\(\boldsymbol{F_\nu} \propto \boldsymbol{\nu^{1/3}}\)；高频端指数截断由盘内区最大温度决定。  </p>
+          
+            <h3>相对论薄盘：Novikov–Thorne（NT73）</h3>
+            <p>Novikov–Thorne 模型在经典薄盘基础上引入广义相对论效应，采用 Kerr 度规描述自转黑洞时空，圆周轨道能量 \(E(r)\)、角动量 \(L(r)\) 和角速度 \(\Omega(r)\) 均用解析的 GR 表达式代替牛顿近似；黏性耗散由</p>
+            <div>
+              \begin{aligned}
+              D_{\rm GR}(r) &= -\frac{\dot M}{4\pi\sqrt{-g}} \frac{d\Omega}{dr} \, \frac{E-\Omega L}{(E-\Omega L)^2} \int_{r_{\rm in}}^r (E-\Omega L) \frac{dL}{dr'} \, dr'
+              \end{aligned}
+            </div>
+            <p>给出，其中 \(\sqrt{-g}\) 为度规行列式因子，依旧在 ISCO 处施加零扭矩边界。假设局部热平衡 \(\sigma T_{\rm eff}^4=D_{\rm GR}(r)\)，并通过光线追迹考虑光束偏折、引力红移和多普勒位移，引入传输函数 \(\mathcal{T}(r,\nu,i,a)\)，则观测谱为</p>
+            <div>
+              \begin{aligned}
+              F_{\nu} &= \frac{1}{D_{L}^2} \int_{r_{\rm in}}^{r_{\rm out}} \mathcal{T}(r,\nu,i,a)\; 2\pi r \; B_{\nu}[T_{\rm eff}(r)] \, dr.
+              \end{aligned}
+            </div>
+            <p>该模型能够精确再现强引力区 Fe Kα 双峰形态与高能端谱形变形。</p>
+          
+            <h3>Slim Disk（超 Eddington 吸积）</h3>
+            <p>当无量纲吸积率 \(\dot m\equiv \dot M/\dot M_\mathrm{Edd}\gtrsim 1\)， 即吸积率\(\dot M\)逼近或超过 Eddington 值时，经典薄盘的局部热平衡假设不再充分，需在能量方程中加入热平流（advective）项。Slim Disk 保持稳恒、轴对称与 \(\alpha\) 黏性参数化，但允许盘体几何上相对增厚 \(H/r \lesssim 1\)，垂直仍然光学厚。其能量方程写为</p>
+            <div>
+              \begin{aligned}
+              Q^+ &= Q^- + Q_{\rm adv},\ \ \ \  Q_{\rm adv} = \frac{\dot M}{2\pi r} T \frac{ds}{dr}.
+              \end{aligned}
+            </div>
+            <p>其中\(Q^+ = \tau_{r\phi}r \frac{d\Omega}{dr}\)是黏性加热，\(Q^- = 2\sigma \tilde T_{\rm eff}(r)^4\)是辐射散失，通过联立连续方程、动量方程与含平流项的能量方程求解可获得平流修正后的温度 \(\tilde T_{\rm eff}(r)\) 。其连续谱形式与经典薄盘相同，只将\(T_{\rm eff}(r)\) 替换为 \(\tilde T_{\rm eff}(r)\)，连续谱为：</p>
+            <div>
+                \begin{aligned}
+                F_{\nu}=\frac{\cos i}{D^2}\int 2\pi r\,B_{\nu}[\tilde T_{\rm eff}(r)]\,dr
+                \end{aligned}
+            </div>
+            <p>由于平流效应带走内部能量，\(\tilde T_{\rm eff}(r)\)分布更平坦，使得紫外/软 X 区谱宽度和高能延伸增强。</p>
+          
+            <h3>ADAF/RIAF（低吸积率）</h3>
+            <p>ADAF（Advection-Dominated Accretion Flow）针对吸积率远低于 Eddington 的稀薄盘流，核心是假设离子和电子温度分离，两温流体中离子通过黏性耗散吸热后大部分随物质平流入洞，仅通过库仑耦合 \(Q_{\rm ie}\) 部分加热电子并辐射。其能量方程分写为</p>
+            <div>
+              \begin{aligned}
+              Q^+ &= Q_{\rm ie} + Q_{\rm adv,i}, \\
+              Q_{\rm ie} &= Q^- + Q_{\rm adv,e}.
+              \end{aligned}
+            </div>
+            <p>质量与动量守恒同经典薄盘简化形式，总压主要为气体压。连续谱由同步、自发 Bremsstrahlung 和逆康普顿叠加：</p>
+            <div>
+              \begin{aligned}
+              F_{\nu} &= \frac{1}{4\pi D^2} \Bigl(L_{\nu}^{\rm synch} + L_{\nu}^{\rm brem} + L_{\nu}^{\rm IC}\Bigr), \\
+              L_{\nu}^{X} &= \int_{r_{\rm in}}^{r_{\rm out}}2\pi r\,H(r)\,j_{\nu}^{X}(r)\,dr.
+              \end{aligned}
+            </div>
+          
+            
+            <h4>ADAF / LHAF / Slim Disk</h4>
+            <div class="model-comparison responsive-table">
+                <table class="model-table">
+                    <thead>
+                        <tr>
+                            <th>Model</th>
+                            <th>Accretion Regime</th>
+                            <th>Energy Balance</th>
+                            <th>Spectral Signature</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>ADAF</td>
+                            <td><small>\(\dot m \ll 1\)</small></td>
+                            <td>\(Q^+ = Q_{\rm adv,i} + Q_{\rm ie}\), 大部分热量随流体平流入 BH，辐射效率低</td>
+                            <td>同步射电峰 + Bremsstrahlung + 多级 Compton，射电到 X 射线</td>
+                        </tr>
+                        <tr>
+                            <td>LHAF</td>
+                            <td><small>\(0.1 \lesssim \dot m \lesssim 1\)</small></td>
+                            <td>\(Q^+ = Q^- + Q_{\rm adv}\)，平流项反向输送部分热量回盘中</td>
+                            <td>更强热光球效应，UV/软 X 区谱更硬</td>
+                        </tr>
+                        <tr>
+                            <td>Slim Disk</td>
+                            <td><small>\(\dot m \gtrsim 1\)</small></td>
+                            <td>\(Q^+ = Q^- + Q_{\rm adv}\), 辐射陷阱显著，平流带走内部热量</td>
+                            <td>多色黑体展宽，UV/软 X 区高能延伸</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+            
+            <h2>2.2 Dust</h2>
+            <p>我们这里所说的 <strong>Dust</strong> 是指围绕类星体中心黑洞的尘埃结构，它吸收中心发出的紫外/光学辐射并在红外重辐射，以维持热平衡。在讨论具体模型之前，我们始于最一般的辐射传输和能量平衡方程。任意尘埃体元沿光路 \(s\) 上的比强度 \(I_{\nu}\) 满足</p> 
+            <div>
+              \begin{aligned}
+              \displaystyle \frac{dI_\nu}{ds} = -\kappa_\nu\,\rho\,I_\nu + \kappa_\nu \rho B_{\nu}[T_d(r)]
+              \end{aligned}
+            </div>
+              <p>其中 \(\kappa_\nu\) 是尘埃吸收+散射系数，\(\rho\) 是密度。而体元温度 \(T_d(r)\) 又要满足</p>             
+            <div>
+                \begin{aligned}
+                \int_0^\infty \kappa_\nu\,J_\nu\,d\nu = \int_0^\infty \kappa_\nu\,B_\nu[T_d(\mathbf r)]\,d\nu,\ \ \ 
+                J_{\nu} = \frac{1}{4 \pi}\int I_{\nu}d\Omega
+                \end{aligned}
+              </div>  
+            <p>给出，其中\(J_\nu\) 是角度平均的辐射场，\(B_{\nu}\) 是黑体。在此基础上，不同模型分别对 \(\rho(r, \phi)\) 、几何分布和散射效率做近似，从而导出可用于拟合红外谱能量分布的简化方程组。</p>
+
+            <h3>2.2.1 Smooth Torus </h3> 
+            <p>平滑模型假设尘埃—气体成连续介质、轴对称分布，早期代表性工作如 Pier & Krolik (1992)[1]。其典型密度剖面写为</p> 
+            <div> 
+              \begin{aligned} 
+              \displaystyle \rho(r,\theta)=\rho_0\Bigl(\frac{r}{r_0}\Bigr)^{-p}\exp\bigl[-q\,|\cos\theta|\bigr] 
+              \end{aligned} 
+            </div> 
+            <p>其中 \(p\) 是中心距离，\(\theta\) 是极角参数。\(p\) 决定径向衰减，\(q\) 控制开口角<sup>[1]</sup>。在这一假设下，尘埃体元厚度大、分布平滑，常忽略散射，仅保留吸收与热发射，于是将传输方程简化为</p> 
+            <div> 
+              \begin{aligned} 
+              \displaystyle \frac{dI_\nu}{dr} \approx -\kappa_\nu\,\rho(r,\theta)\,I_\nu + \kappa_\nu\,\rho(r,\theta)\,B_\nu\bigl[T_d(r,\theta)\bigr] 
+              \end{aligned} 
+            </div> 
+            <p>结合局部能量平衡，可近似得到尘埃温度随半径的衰减关系</p> 
+            <div> 
+              \begin{aligned} 
+              \displaystyle T_d(r,\theta)\simeq\Bigl[\frac{L_{\rm UV}}{16\pi\sigma\,r^2}\,\frac{\langle Q_{\rm abs}\rangle}{\langle Q_{\rm em}\rangle}\Bigr]^{1/4} 
+              \end{aligned} 
+            </div> 
+            <p>其中\(Q_{\rm abs/em}\)是尘粒对入射/出射谱的效率平均值<sup>[2]</sup>。最终，对整个 Torus 体积积分可得红外谱</p> 
+            <div> 
+              \begin{aligned} 
+              \displaystyle F_\nu = \frac{1}{D^2}\int \kappa_\nu\,\rho(r,\theta)\,B_\nu\bigl[T_d(r,\theta)\bigr]\,dV 
+              \end{aligned} 
+            </div> 
+            <p>常用于解释类星体的“中—远红外峰”与光谱低频尾部。
+              <h3>2.2.2 云团模型 (Clumpy Torus)</h3>
+              <p>云团模型假设尘埃由大量不相连的球状云团组成，每个云团内尘埃密度高、尺寸小于整体半径，从而在统计意义上产生不均匀的遮挡效果。典型代表为 Nenkova et al. (2008) 的 CLUMPY 模型，其核心假设：</p>
+              <ul>
+                <li>径向云团数目分布：\(\displaystyle N(r) = N_0 \Bigl(\frac{r}{r_{\rm sub}}\Bigr)^{-q}\)，其中 \(N_0\) 为从近边缘到出射半径平均云团数目，\(q\) 控制径向衰减。</li>
+                <li>极向分布：云团角度分布满足高斯型，\(\displaystyle P(\theta)\propto \exp\Bigl[-\frac{(\theta-\pi/2)^2}{2\sigma^2}\Bigr]\)，\(\sigma\) 为开口半角。</li>
+                <li>单个云团光学厚度：\(\tau_V\)，并假设吸收与散射传输可用 Beer–Lambert 定律处理。</li>
+              </ul>
+              <p>Monte Carlo 辐射传输结合上述分布，可计算出从任意视角看到的红外SED：</p>
+              <div>
+                \[
+                F_\nu = \frac{1}{D^2}\sum_{i=1}^{N_{\rm tot}} \int_{\rm cloud_i} \kappa_\nu\,\rho_{\rm cloud}\,B_\nu[T_d]\,dV
+                \]
+              </div>
+              <p>云与云之间的空隙导致视角依赖性更强，能够自然解释近红外与中红外的不同吸收特征。</p>
+              
+              <h3>2.2.3 双相介质模型 (Two-Phase Medium)</h3>
+              <p>考虑到实际尘埃既有大尺度光滑组分，也有小尺度致密云团，双相模型在平滑分布的基础上叠加云团分布。如 Siebenmorgen et al. (2015) 或 Stalevski et al. (2016) 的 CAT3D-WIND 模型：</p>
+              <ul>
+                <li>平滑组分沿径向和极向分布写作 \(\rho_{\rm smooth}(r,\theta)\)；</li>
+                <li>云团组分按 2.2.2 所述概率分布随机分布；</li>
+                <li>分别对两相介质进行辐射传输，再在最终光程上叠加发射与吸收。</li>
+              </ul>
+              <p>双相模型相比纯平滑或纯云团，在重复拟合样本的中红外峰和近红外坍塌特征上具有更好自由度。</p>
+              
+              <h3>2.2.4 圆盘+风模型 (Disk + Wind)</h3>
+              <p>近年来观测到极向（Polar）红外辐射，促使引入由黑洞吸积盘内侧吹出的尘埃风模型（e.g. Hönig & Kishimoto 2017）：</p>
+              <ul>
+                <li>初始几何：近红外“热”尘埃位于吸积盘面上，随后被辐射压或磁场驱动形成离心风；</li>
+                <li>风流密度分布：\(\rho(r,\theta)\propto r^{-p}\,\exp\bigl[-(\theta-\theta_0)^2/2\,\sigma_w^2\bigr]\)，\(\theta_0\) 为风流主射角，\(\sigma_w\) 为半张角；</li>
+                <li>辐射传输：采用 Monte Carlo 方法模拟风中尘埃的加热与再辐射，可同时产生圆环与极向的红外辐射组件。</li>
+              </ul>
+              <p>此模型能够自洽地解释在圆盘平面和极向方向均检测到的红外发射，以及偏振等观测特征。</p>
+              
+              <h3>2.2.5 辐射传输数值方法</h3>
+              <p>以上各模型中，辐射传输和温度求解大多依赖数值方法，包括：</p>
+              <ol>
+                <li><strong>蒙特卡洛方法</strong>：随机跟踪光子包裹，多用于 CLUMPY、CAT3D、Disk+Wind 等复杂几何。</li>
+                <li><strong>射线追踪法 (Ray-Tracing)</strong>：多用于平滑模型或近似一维径向传输，加速计算。</li>
+                <li><strong>公共代码：</strong>如 RADMC-3D、SKIRT、TRADING、DART-Ray 等，可在任意几何下快速实现吸收、散射与再辐射。</li>
+              </ol>
+              <p>通过对比不同模型在近红外 (1–5 μm)、中红外 (5–30 μm) 乃至远红外 (>30 μm) 波段的SED特征，人们可以从观测数据中约束几何形状、光学厚度、云团分布等关键物理参数。</p>
+            
+
+            <h2>2.3 Jet</h2>
+
+        </article>
+        
+
+    <!-- 右侧边栏 -->
+    <aside class="right-sidebar">
+        <!-- Search 模块 -->
+        <div class="search-container">
+          <h3>Search</h3>
+          <div class="search">
+              <form action="../../SearchResultsPage.html" method="GET" id="search-form">
+                  <!-- 搜索选项 -->
+                  <div class="search-options">
+                      <label class="search-option">
+                          <input type="radio" name="searchType" value="title" checked>
+                          <span>Title</span>
+                      </label>
+                      <label class="search-option">
+                          <input type="radio" name="searchType" value="tags">
+                          <span>Tags</span>
+                      </label>
+                      <label class="search-option">
+                          <input type="radio" name="searchType" value="content">
+                          <span>Content</span>
+                      </label>
+                  </div>
+                  <div class="search-input-group">
+                      <input type="text" name="search" id="search-input" placeholder="Search articles..." />
+                      <button type="submit">Search</button>
+                  </div>
+              </form>
+          </div>
+      </div>
+        <!-- Tags 模块 -->
+        <div class="tags">
+          <h3 class="tags-header">
+              Tags
+          </h3>
+          <ul class="tags-list"></ul>
+      </div>
+    </aside>
+  </div>
+  
+  <!-- Footer Section -->
+  <footer>
+    <div class="footer-content">
+        <div class="contact-links">
+            <a href="https://space.bilibili.com/7366309?spm_id_from=333.1007.0.0" target="_blank" rel="noopener noreferrer">
+                <i class="fas fa-play-circle"></i> Bilibili
+            </a>
+            <a href="https://github.com/ddddddsad?tab=repositories" target="_blank" rel="noopener noreferrer">
+                <i class="fab fa-github"></i> GitHub
+            </a>
+            <a href="mailto:donhaozhe@gmail.com">
+                <i class="fas fa-envelope"></i> Gmail
+            </a>
+        </div>
+        <p>&copy; 2024 Personal Blog. All rights reserved.</p>
+    </div>
+  </footer>
+  
+  <script src="../../js/script.js"></script>
+  <script src="../../js/tags.js"></script>
+  <script src="../../js/search.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/lunr.js/2.3.9/lunr.min.js"></script>
+  <script src="../../js/article-navigation.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/MathJax.js?config=TeX-AMS_HTML" async></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/highlight.min.js"></script>
+    <script>
+        hljs.highlightAll();
+    </script>
+</body>
+</html>

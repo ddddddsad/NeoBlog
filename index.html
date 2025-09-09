@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Blog</title>
+    <!-- 保持使用原来的 style.css -->
+    <link rel="stylesheet" href="css/MainStyle.css">
+    <link rel="stylesheet" href="css/article-list.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+</head>
+<body>
+    <header>
+        <nav>
+            <ul>
+                <li><a href="index.html">Home</a></li>
+                <li><a href="AboutMe/aboutme.html">About Me</a></li>
+                <li class="dropdown">
+                    <a href="javascript:void(0);" class="dropbtn">Articles</a>
+                    <ul class="dropdown-content">
+                        <li><a href="Articles/Astronomy/_AstronomyMenu.html">Astronomy</a></li>
+                        <li><a href="Articles/Physics/_PhysicsMenu.html">Physics</a></li>
+                        <li><a href="Articles/Explorations/_ExplorationsMenu.html">Explorations</a></li>
+                    </ul>
+                </li>
+            </ul>
+        </nav>
+    </header>
+
+    <!-- 主内容区 -->
+    <div class="main-content">
+        <!-- Recent Articles 模块 -->
+        <section class="article-list">
+            <h1>Recent Articles</h1>
+            <ul id="articles-container">
+                
+            </ul>
+            <!-- 分页控件 -->
+            <div class="pagination">
+                <button id="prev-page" class="pagination-btn">Previous</button>
+                <span id="page-info" class="page-info">Page 1 of 1</span>
+                <button id="next-page" class="pagination-btn">Next</button>
+            </div>
+        </section>
+
+        <!-- 侧边栏 -->
+        <aside class="sidebar">
+        <!-- Search 模块 -->
+        <div class="search-container">
+            <h3>Search</h3>
+            <div class="search">
+                <form action="SearchResultsPage.html" method="GET" id="search-form">
+                    <!-- 搜索选项 -->
+                    <div class="search-options">
+                        <label class="search-option">
+                            <input type="radio" name="searchType" value="title" checked>
+                            <span>Title</span>
+                        </label>
+                        <label class="search-option">
+                            <input type="radio" name="searchType" value="tags">
+                            <span>Tags</span>
+                        </label>
+                        <label class="search-option">
+                            <input type="radio" name="searchType" value="content">
+                            <span>Content</span>
+                        </label>
+                    </div>
+                    <div class="search-input-group">
+                        <input type="text" name="search" id="search-input" placeholder="Search articles..." />
+                        <button type="submit">Search</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+
+            <!-- Tags 模块 -->
+            <div class="tags">
+                <h3 class="tags-header">
+                    Tags 
+                </h3>
+                <ul class="tags-list"></ul>
+            </div>
+        </aside>
+    </div>
+
+    <!-- 页脚 -->
+    <footer>
+        <div class="footer-content">
+          <div class="contact-links">
+            <a href="https://space.bilibili.com/7366309?spm_id_from=333.1007.0.0" target="_blank" rel="noopener noreferrer">
+              <i class="fas fa-play-circle"></i> Bilibili
+            </a>
+            <a href="https://github.com/ddddddsad?tab=repositories" target="_blank" rel="noopener noreferrer">
+              <i class="fab fa-github"></i> GitHub
+            </a>
+            <a href="mailto:donhaozhe@gmail.com">
+              <i class="fas fa-envelope"></i> Gmail
+            </a>
+          </div>
+          <p>&copy; 2024 Personal Blog. All rights reserved.</p>
+        </div>
+      </footer>
+
+    <!-- 引入独立的 JS 文件 -->
+    <script src="js/script.js"></script>
+    <script src="js/search.js"></script>
+    <script src="js/recent-articles.js"></script>
+    <script src="js/tags.js"></script>  <!-- 新增此行 -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/MathJax.js?config=TeX-AMS_HTML" async></script>
+</body>
+</html>

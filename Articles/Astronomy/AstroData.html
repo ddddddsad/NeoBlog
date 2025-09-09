@@ -1,0 +1,164 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AstroData</title>
+    <link rel="stylesheet" href="../../css/MainStyle.css">
+    <link rel="stylesheet" href="../../css/article-list.css">
+    <link rel="stylesheet" href="../../css/article-navigation.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+</head>
+<body>
+    <!-- Header Section -->
+    <header>
+        <nav>
+            <ul>
+                <li><a href="../../index.html">Home</a></li>
+                <li><a href="../../AboutMe/aboutme.html">About Me</a></li>
+                <li class="dropdown">
+                    <a href="javascript:void(0);" class="dropbtn">Articles</a>
+                    <ul class="dropdown-content">
+                        <li><a href="../Astronomy/_AstronomyMenu.html">Astronomy</a></li>
+                        <li><a href="../Physics/_PhysicsMenu.html">Physics</a></li>
+                        <li><a href="../Explorations/_ExplorationsMenu.html">Explorations</a></li>
+                    </ul>
+                </li>
+            </ul>
+        </nav>
+    </header>
+
+    <div class="main-content">
+        <!-- 左侧边栏 -->
+        <aside class="left-sidebar">
+            <!-- Articles Navigation 模块 -->
+            <div class="article-navigation">
+                <div class="toggleArea">☰ Menu</div>
+                <ul id="toc">
+                    <!-- 目录将在这里生成 -->
+                </ul>
+            </div>
+        </aside>
+        <article class="article-content">
+            <h1>Astronomy Data Access Summary</h1>
+            <div class="meta-info">
+                <div class="article-tags">
+                    <a href="#">Astronomy</a>
+                    <a href="#">Science</a>
+                    <a href="#">Data</a>
+                </div>
+                <div class="publish-date">2024-9-22 19:38:16</div>
+            </div>
+            <h2>
+                SDSS Data Access
+            </h2>
+            <p>
+                You may download all the data in <a href="https://www.sdss4.org/dr17/data_access/bulk/#OpticalSpectraVersions" target="_blank">SDSS Website</a>. Here is only a conclusion.
+            </p>
+            <h3>
+                SDSS Optical Spectra Per-Object Files(DR17)
+            </h3>
+            <p>
+                <a href="https://data.sdss.org/sas/dr17/eboss/spectro/redux/v5_13_2/spectra/full/" target="_blank">eBOSS, BOSS and SEQUELS spectra</a>
+            </p>
+            <p>
+                <a href="https://data.sdss.org/sas/dr17/sdss/spectro/redux/26/spectra/" target="_blank">SDSS Legacy spectra</a>
+            </p>
+            <p>
+                <a href="https://data.sdss.org/sas/dr17/sdss/spectro/redux/103/spectra/" target="_blank">SDSS stellar cluster plates</a>
+            </p>
+            <p>
+                <a href="https://data.sdss.org/sas/dr17/sdss/spectro/redux/104/spectra/" target="_blank">SDSS SEGUE-2 plates</a>
+            </p>
+            <h3>
+                DR16 QSO Catalog
+            </h3>
+            <p>
+                <a href="https://www.sdss4.org/dr17/algorithms/qso_catalog/" target="_blank">SDSS DR16 QSO Catalog</a>
+            </p>  
+            <h2>
+                WISE Data Access
+            </h2>
+            <p>
+                <a href="https://irsa.ipac.caltech.edu/cgi-bin/Gator/nph-scan?projshort=WISE&mission=irsa" target="_blank">Here</a> for General Catalog Query Engine.
+            </p>
+
+            <p>
+                Your input file sould match the <a href="https://irsa.ipac.caltech.edu/applications/DDGEN/Doc/ipac_tbl.html" target="_blank">IPAC Table Format</a>. If you already have a csv file, here is a <a href="https://github.com/ddddddsad/csv_2_ipac" target="_blank">small tool</a> for csv to IPAC table format.
+            </p>
+            <h3>
+                WISE Data Processing Information
+            </h3>
+            <p>
+                <a href="https://wise2.ipac.caltech.edu/docs/release/allsky/expsup/index.html" target="_blank">Here</a> for explanatory supplement to the WISE All-Sky Data Release Products.
+            </p>
+            <p>
+                <a class="back-button" href="_AstronomyMenu.html">Back to Astronomy Articles</a>
+            </p>
+               
+        </article>
+    <!-- 右侧边栏 -->
+    <aside class="right-sidebar">
+        <!-- Search 模块 -->
+        <div class="search-container">
+          <h3>Search</h3>
+          <div class="search">
+              <form action="../../SearchResultsPage.html" method="GET" id="search-form">
+                  <!-- 搜索选项 -->
+                  <div class="search-options">
+                      <label class="search-option">
+                          <input type="radio" name="searchType" value="title" checked>
+                          <span>Title</span>
+                      </label>
+                      <label class="search-option">
+                          <input type="radio" name="searchType" value="tags">
+                          <span>Tags</span>
+                      </label>
+                      <label class="search-option">
+                          <input type="radio" name="searchType" value="content">
+                          <span>Content</span>
+                      </label>
+                  </div>
+                  <div class="search-input-group">
+                      <input type="text" name="search" id="search-input" placeholder="Search articles..." />
+                      <button type="submit">Search</button>
+                  </div>
+              </form>
+          </div>
+      </div>
+        <!-- Tags 模块 -->
+        <div class="tags">
+          <h3 class="tags-header">
+              Tags
+          </h3>
+          <ul class="tags-list"></ul>
+      </div>
+    </aside>
+  </div>
+  
+  <!-- Footer Section -->
+      <footer>
+        <div class="footer-content">
+            <div class="contact-links">
+                <a href="https://space.bilibili.com/7366309?spm_id_from=333.1007.0.0" target="_blank" rel="noopener noreferrer">
+                    <i class="fas fa-play-circle"></i> Bilibili
+                </a>
+                <a href="https://github.com/ddddddsad?tab=repositories" target="_blank" rel="noopener noreferrer">
+                    <i class="fab fa-github"></i> GitHub
+                </a>
+                <a href="mailto:donhaozhe@gmail.com">
+                    <i class="fas fa-envelope"></i> Gmail
+                </a>
+            </div>
+            <p>&copy; 2024 Personal Blog. All rights reserved.</p>
+        </div>
+    </footer>
+  
+  <script src="../../js/script.js"></script>
+  <script src="../../js/tags.js"></script>
+  <script src="../../js/search.js"></script>
+  <script src="../../js/article-navigation.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/MathJax.js?config=TeX-AMS_HTML" async></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/highlight.min.js"></script>
+</body>
+</html>

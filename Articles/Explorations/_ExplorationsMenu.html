@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Explorations Articles</title>
+    <link rel="stylesheet" href="../../css/MainStyle.css">
+    <link rel="stylesheet" href="../../css/article-list.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+</head>
+<body>
+    <header>
+        <nav>
+            <ul>
+                <li><a href="../../index.html">Home</a></li>
+                <li><a href="../../AboutMe/aboutme.html">About Me</a></li>
+                <li class="dropdown">
+                    <a href="javascript:void(0);" class="dropbtn">Articles</a>
+                    <ul class="dropdown-content">
+                        <li><a href="../Astronomy/_AstronomyMenu.html">Astronomy</a></li>
+                        <li><a href="../Physics/_PhysicsMenu.html">Physics</a></li>
+                        <li><a href="../Explorations/_ExplorationsMenu.html">Explorations</a></li>
+                    </ul>
+                </li>
+            </ul>
+        </nav>
+    </header>
+    <div class="main-content">
+        <section class="article-list">
+            <h1>Articles: Explorations</h1>
+            <ul id="article-list-container">
+                <!-- Articles will be loaded here by JavaScript -->
+            </ul>
+        </section>     
+
+    <!-- 侧边栏 -->
+     <aside class="sidebar">
+        <!-- Search 模块 -->
+         <div class="search-container">
+            <h3>Search</h3>
+            <div class="search">
+                <form action="../../SearchResultsPage.html" method="GET" id="search-form">
+                    <!-- 搜索选项 -->
+                    <div class="search-options">
+                        <label class="search-option">
+                            <input type="radio" name="searchType" value="title" checked>
+                            <span>Title</span>
+                        </label>
+                        <label class="search-option">
+                            <input type="radio" name="searchType" value="tags">
+                            <span>Tags</span>
+                        </label>
+                        <label class="search-option">
+                            <input type="radio" name="searchType" value="content">
+                            <span>Content</span>
+                        </label>
+                    </div>
+                    <div class="search-input-group">
+                        <input type="text" name="search" id="search-input" placeholder="Search articles..." />
+                        <button type="submit">Search</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+        <!-- Tags 模块 -->
+        <div class="tags">
+            <h3 class="tags-header">
+                Tags
+            </h3>
+            <ul class="tags-list"></ul>
+        </div>
+    </aside>
+</div>
+<footer>
+    <div class="footer-content">
+        <div class="contact-links">
+            <a href="https://space.bilibili.com/7366309?spm_id_from=333.1007.0.0" target="_blank" rel="noopener noreferrer">
+                <i class="fas fa-play-circle"></i> Bilibili
+            </a>
+            <a href="https://github.com/ddddddsad?tab=repositories" target="_blank" rel="noopener noreferrer">
+                <i class="fab fa-github"></i> GitHub
+            </a>
+            <a href="mailto:donhaozhe@gmail.com">
+                <i class="fas fa-envelope"></i> Gmail
+            </a>
+        </div>
+        <p>&copy; 2024 Personal Blog. All rights reserved.</p>
+    </div>
+</footer>
+    <script src="../../js/script.js"></script>
+    <script src="../../js/tags.js"></script>
+    <script src="../../js/search.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/MathJax.js?config=TeX-AMS_HTML" async></script>
+
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+    fetch('../../data/ExplorationsArticles.json')
+        .then(response => response.json())
+        .then(data => {
+            const formatDate = (isoString) => {
+                const date = new Date(isoString);
+                return date.toLocaleDateString('en-US', { 
+                    year: 'numeric', 
+                    month: 'long', 
+                    day: 'numeric' 
+                });
+            };
+            
+            const container = document.getElementById('article-list-container');
+            const sortedArticles = data.articles.sort((a, b) => 
+                new Date(b.date) - new Date(a.date)
+            );
+
+            sortedArticles.forEach(article => {
+                const li = document.createElement('li');
+                li.innerHTML = `
+                    <a class="article-list-title" href="${article.filename}">${article.title}</a>
+                    <time datetime="${article.date}">${formatDate(article.date)}</time>
+                    <div>
+                        <span class="article-list-tag">Tags: </span>
+                        ${article.tags.map(tag => 
+                            `<a class="article-list-tagsName" href="#" data-tag="${tag}">${tag}</a>`
+                        ).join(', ')}
+                    </div>
+                `;
+                container.appendChild(li);
+            });
+            
+            // 为动态生成的标签添加点击事件
+            container.querySelectorAll('.article-list-tagsName').forEach(tagLink => {
+                tagLink.addEventListener('click', async (e) => {
+                    e.preventDefault();
+                    const tag = e.target.dataset.tag;
+                    console.log('Tag clicked in Explorations menu:', tag);
+                    
+                    // 如果全局的标签搜索函数存在，使用它
+                    if (typeof performTagSearch === 'function') {
+                        await performTagSearch(tag);
+                    } else {
+                        // 否则显示提示信息
+                        alert(`点击标签 "${tag}" 搜索功能暂不可用，请使用侧边栏的搜索功能。`);
+                    }
+                });
+            });
+        })
+        .catch(error => console.error('Error loading articles:', error));
+});
+</script>
+</body>
+</html>
