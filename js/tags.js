@@ -14,16 +14,25 @@ document.addEventListener('DOMContentLoaded', async () => {
         } else {
             // 降级处理：直接加载数据
             const categories = ['Astronomy', 'Physics', 'Explorations'];
-            const basePath = window.location.pathname.startsWith('/NeoBlog') 
-                ? '/NeoBlog' 
-                : '';
+            let basePath = '';
+            if (window.location.hostname !== 'localhost' && window.location.hostname !== '127.0.0.1') {
+                basePath = '/NeoBlog';
+            }
 
             const allData = await Promise.all(
-                categories.map(cat => 
-                    fetch(`${basePath}/data/${cat}Articles.json`)
-                        .then(res => res.ok ? res.json() : [])
-                        .catch(() => [])
-                )
+                categories.map(cat => {
+                    const url = `${basePath}/data/${cat}Articles.json`;
+                    console.log('Loading tags data from:', url);
+                    return fetch(url)
+                        .then(res => {
+                            console.log(`Tags response for ${cat}:`, res.status, res.ok);
+                            return res.ok ? res.json() : { articles: [] };
+                        })
+                        .catch(error => {
+                            console.error(`Error loading tags for ${cat}:`, error);
+                            return { articles: [] };
+                        });
+                })
             );
 
             allTags = [...new Set(
@@ -72,16 +81,25 @@ async function performTagSearch(tag) {
         } else {
             // 降级处理：直接加载数据
             const categories = ['Astronomy', 'Physics', 'Explorations'];
-            const basePath = window.location.pathname.startsWith('/NeoBlog') 
-                ? '/NeoBlog' 
-                : '';
+            let basePath = '';
+            if (window.location.hostname !== 'localhost' && window.location.hostname !== '127.0.0.1') {
+                basePath = '/NeoBlog';
+            }
 
             const allData = await Promise.all(
-                categories.map(cat => 
-                    fetch(`${basePath}/data/${cat}Articles.json`)
-                        .then(res => res.ok ? res.json() : { articles: [] })
-                        .catch(() => ({ articles: [] }))
-                )
+                categories.map(cat => {
+                    const url = `${basePath}/data/${cat}Articles.json`;
+                    console.log('Loading search data from:', url);
+                    return fetch(url)
+                        .then(res => {
+                            console.log(`Search response for ${cat}:`, res.status, res.ok);
+                            return res.ok ? res.json() : { articles: [] };
+                        })
+                        .catch(error => {
+                            console.error(`Error loading search data for ${cat}:`, error);
+                            return { articles: [] };
+                        });
+                })
             );
 
             allArticles = allData.flatMap((data, index) => 
@@ -110,11 +128,21 @@ async function performTagSearch(tag) {
         const currentPath = window.location.pathname;
         let targetPath = 'SearchResultsPage.html';
         
-        // 如果当前不在根目录，需要回到根目录
-        if (currentPath.includes('/Articles/') || currentPath.includes('/AboutMe/')) {
-            const pathSegments = currentPath.split('/').filter(segment => segment);
-            const levelsUp = pathSegments.length - 1;
-            targetPath = '../'.repeat(levelsUp) + 'SearchResultsPage.html';
+        // 检查是否在GitHub Pages环境
+        if (window.location.hostname !== 'localhost' && window.location.hostname !== '127.0.0.1') {
+            // GitHub Pages环境，使用绝对路径
+            if (currentPath.includes('/NeoBlog/')) {
+                targetPath = '/NeoBlog/SearchResultsPage.html';
+            } else {
+                targetPath = '/SearchResultsPage.html';
+            }
+        } else {
+            // 本地环境，使用相对路径
+            if (currentPath.includes('/Articles/') || currentPath.includes('/AboutMe/')) {
+                const pathSegments = currentPath.split('/').filter(segment => segment);
+                const levelsUp = pathSegments.length - 1;
+                targetPath = '../'.repeat(levelsUp) + 'SearchResultsPage.html';
+            }
         }
         
         console.log('Jumping to search results:', targetPath);
