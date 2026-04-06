@@ -1,0 +1,39 @@
+{
+      "articles": [
+        {
+          "title": "AGN中的尘埃消光",
+          "category": "Astronomy",
+          "filename": "DustExtinction.html",
+          "tags": ["Astronomy", "AGN", "Dust", "Extinction", "Astrophysics", "Research"],
+          "date": "2025-6-16"
+        },
+        {
+          "title": "SED 拟合指南",
+          "category": "Astronomy",
+          "filename": "CIGALE.html",
+          "tags": ["Astronomy", "Code", "SED Fitting", "CIGALE", "Tutorial", "Data Analysis", "Galaxy"],
+          "date": "2024-12-10"
+        },
+        {
+          "title": "Astronomy Data Access Summary",
+          "category": "Astronomy",
+          "filename": "AstroData.html",
+          "tags": ["Astronomy", "Science", "Data", "Database", "Tutorial", "Resources", "Summary"],
+          "date": "2024-09-22"
+        },
+        {
+          "title": "类星体多波段光谱能量分布的物理建模",
+          "category": "Astronomy",
+          "filename": "AGN_TheoriesAndModels.html",
+          "tags": ["Astronomy", "Code", "Science", "AGN", "Modeling", "Research"],
+          "date": "2025-5-9"
+        },
+        {
+          "title": "SED拟合完整指南：从理论到实践",
+          "category": "Astronomy",
+          "filename": "SEDFittingGuide.html",
+          "tags": ["Astronomy", "SED Fitting", "Spectroscopy", "Photometry", "Data Analysis", "AGN", "Code"],
+          "date": "2025-8-26"
+        }
+      ]
+    }
