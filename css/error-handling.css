@@ -1,0 +1,118 @@
+/* 错误处理和用户消息样式 */
+.error-message {
+    background: linear-gradient(135deg, #ff6b6b, #ee5a52);
+    color: white;
+    padding: 20px;
+    border-radius: 8px;
+    text-align: center;
+    margin: 20px 0;
+    box-shadow: 0 4px 15px rgba(255, 107, 107, 0.3);
+    animation: slideIn 0.3s ease-out;
+}
+
+.error-message p {
+    margin: 0 0 15px 0;
+    font-size: 16px;
+    font-weight: 500;
+}
+
+.retry-btn {
+    background: rgba(255, 255, 255, 0.2);
+    border: 2px solid rgba(255, 255, 255, 0.3);
+    color: white;
+    padding: 8px 20px;
+    border-radius: 20px;
+    cursor: pointer;
+    font-size: 14px;
+    transition: all 0.3s ease;
+    backdrop-filter: blur(10px);
+}
+
+.retry-btn:hover {
+    background: rgba(255, 255, 255, 0.3);
+    border-color: rgba(255, 255, 255, 0.5);
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+}
+
+/* 用户消息提示 */
+.user-message {
+    position: fixed;
+    top: 20px;
+    right: 20px;
+    padding: 15px 20px;
+    border-radius: 8px;
+    color: white;
+    font-weight: 500;
+    z-index: 10000;
+    animation: slideInRight 0.3s ease-out;
+    max-width: 300px;
+    word-wrap: break-word;
+}
+
+.user-message-info {
+    background: linear-gradient(135deg, #4ecdc4, #44a08d);
+    box-shadow: 0 4px 15px rgba(78, 205, 196, 0.3);
+}
+
+.user-message-warning {
+    background: linear-gradient(135deg, #ffa726, #ff9800);
+    box-shadow: 0 4px 15px rgba(255, 167, 38, 0.3);
+}
+
+.user-message-error {
+    background: linear-gradient(135deg, #ff6b6b, #ee5a52);
+    box-shadow: 0 4px 15px rgba(255, 107, 107, 0.3);
+}
+
+/* 动画效果 */
+@keyframes slideIn {
+    from {
+        opacity: 0;
+        transform: translateY(-20px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+@keyframes slideInRight {
+    from {
+        opacity: 0;
+        transform: translateX(100%);
+    }
+    to {
+        opacity: 1;
+        transform: translateX(0);
+    }
+}
+
+/* 加载状态指示器 */
+.loading-spinner {
+    display: inline-block;
+    width: 20px;
+    height: 20px;
+    border: 3px solid rgba(255, 255, 255, 0.3);
+    border-radius: 50%;
+    border-top-color: #fff;
+    animation: spin 1s ease-in-out infinite;
+}
+
+@keyframes spin {
+    to { transform: rotate(360deg); }
+}
+
+/* 响应式设计 */
+@media (max-width: 768px) {
+    .user-message {
+        right: 10px;
+        left: 10px;
+        max-width: none;
+    }
+    
+    .error-message {
+        margin: 15px 10px;
+        padding: 15px;
+    }
+}
