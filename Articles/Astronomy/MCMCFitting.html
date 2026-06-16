@@ -1,0 +1,604 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <script>(function(){var t=localStorage.getItem("theme");if(t)document.documentElement.setAttribute("data-theme",t);else{var m=window.matchMedia("(prefers-color-scheme:dark)");if(m&&m.matches)document.documentElement.setAttribute("data-theme","dark")}})();</script>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="详细介绍马尔可夫链蒙特卡洛（MCMC）采样方法，从蒙特卡罗积分到 Gibbs 采样，附代码示例">
+    <meta property="og:title" content="MCMC 采样方法详解 - NeoBlog">
+    <meta property="og:description" content="详细介绍MCMC采样方法，从蒙特卡罗积分到 Gibbs 采样">
+    <meta property="og:type" content="article">
+    <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>⚛</text></svg>">
+    <title>MCMC 采样方法详解：从蒙特卡罗到 Gibbs 采样</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/default.min.css">
+    <link rel="stylesheet" href="../../css/MainStyle.css">
+    <link rel="stylesheet" href="../../css/article-list.css">
+    <link rel="stylesheet" href="../../css/article-navigation.css">
+    <link rel="stylesheet" href="../../css/codeBlock.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+</head>
+<body>
+    <!-- Header Section -->
+    <header>
+        <nav>
+            <ul>
+                <li><a href="../../index.html">Home</a></li>
+                <li><a href="../../AboutMe/aboutme.html">About Me</a></li>
+                <li class="dropdown">
+                    <a href="javascript:void(0);" class="dropbtn">Articles</a>
+                    <ul class="dropdown-content">
+                        <li><a href="../Astronomy/_AstronomyMenu.html">Astronomy</a></li>
+                        <li><a href="../Physics/_PhysicsMenu.html">Physics</a></li>
+                        <li><a href="../Explorations/_ExplorationsMenu.html">Explorations</a></li>
+                    </ul>
+                </li>
+            </ul>
+        </nav>
+    </header>
+
+    <div class="main-content">
+        <!-- 左侧边栏 -->
+        <aside class="left-sidebar">
+            <!-- Articles Navigation 模块 -->
+            <div class="article-navigation">
+                <div class="toggleArea">☰ Menu</div>
+                <ul id="toc">
+                    <!-- 目录将在这里生成 -->
+                </ul>
+            </div>
+        </aside>
+        
+        <article class="article-content">
+            <h1>MCMC 采样方法详解：从蒙特卡罗到 Gibbs 采样</h1>
+            <div class="meta-info">
+                <div class="article-tags">
+                    <a href="#">MCMC</a>
+                    <a href="#">Monte Carlo</a>
+                    <a href="#">Markov Chain</a>
+                    <a href="#">Bayesian</a>
+                    <a href="#">Statistics</a>
+                    <a href="#">Algorithm</a>
+                    <a href="#">Code</a>
+                </div>
+                <div class="publish-date">2026-6-7 12:00:00</div>
+            </div>
+
+            <!-- ==================== 第1章 ==================== -->
+            <h2>1. MCMC</h2>
+            
+            <h3>1.1 MCMC 是什么</h3>
+            <p>
+                MCMC, 全称 Markov Chain Monte Carlo（马尔可夫链蒙特卡洛），是两个概念的结合：
+            </p>
+            <ul>
+                <li><strong>Monte Carlo（蒙特卡罗）：</strong>通过随机抽样来做数值计算的一类方法，核心思想是"用频率逼近概率"。</li>
+                <li><strong>Markov Chain（马尔可夫链）：</strong>一种"下一步状态只依赖当前状态"的随机过程，是构造高效抽样策略的数学工具。</li>
+            </ul>
+            <p>
+                将二者拼接在一起，MCMC 的本质就是：<strong>构造一条马尔可夫链，使其平稳分布恰好等于我们想要采样的目标分布，然后从这条链上收集样本，用这些样本做统计推断。</strong>
+            </p>
+            <p>
+                用一个比喻：你想了解一座山的等高线图——但山太高太大，你没法从空中俯瞰。MCMC 的做法是放一个登山者在山上随机行走，他倾向往上走（高概率区域），但也偶尔下山（避免困在一个山头）。他走了十万步，你把他走过的每一步位置记录下来——这些位置点的分布，就逼近了这座山真正的等高线图。
+            </p>
+
+            <h3>1.2 为什么需要 MCMC</h3>
+            <p>
+                在贝叶斯统计中，给定模型 \(M(x;\theta)\) 和观测数据 \(D\)，后验分布为：
+            </p>
+            <div>
+                \[
+                P(\theta \mid D) = \frac{P(D \mid \theta) \, P(\theta)}{P(D)} = \frac{P(D \mid \theta) \, P(\theta)}{\int P(D \mid \theta) P(\theta)\, d\theta}
+                \]
+            </div>
+            <p>
+                问题出在分母——在高维参数空间中计算归一化积分 \(P(D)\) 极其困难甚至不可能。而现实的参数维度经常是 5、10、50 甚至成百上千维，网格积分的计算量随维度指数爆炸。MCMC 巧妙地绕过了直接算分母：它只需要知道<strong>未归一化的后验密度</strong>（分子部分）就能完成采样。这正是 MCMC 成为现代贝叶斯计算基石的根本原因。
+            </p>
+
+            <!-- ==================== 第2章 ==================== -->
+            <h2>2. 蒙特卡罗</h2>
+
+            <h3>2.1 引入</h3>
+            <p>
+                蒙特卡罗方法（Monte Carlo method）的思想可以追溯到 18 世纪的布丰投针实验（Buffon's needle），用来估计 \(\pi\) 值。但真正作为一门学科诞生于 1940 年代洛斯阿拉莫斯实验室，Ulam、von Neumann 和 Fermi 等人在研制原子弹的"曼哈顿计划"中用它来模拟中子在裂变材料中的扩散。
+            </p>
+            <p>
+                蒙特卡罗方法的核心是<strong>大数定律</strong>：设 \(X_1, X_2, \ldots, X_n\) 是从分布 \(p(x)\) 中独立抽取的样本，则对于任意可积函数 \(f\)，
+            </p>
+            <div>
+                \[
+                \mathbb{E}_p[f(X)] = \int f(x) p(x) \,dx \approx \frac{1}{n}\sum_{i=1}^n f(X_i)
+                \]
+            </div>
+            <p>
+                也就是说，只要我们能从 \(p(x)\) 中抽样，就能用样本均值逼近任意期望。关键问题是——给定一个复杂的概率密度 \(p(x)\)，如何高效地生成服从它的随机样本？
+            </p>
+
+            <h3>2.2 均匀分布，Box-Muller 变换</h3>
+            <p>
+                几乎所有随机抽样方法的基础，都是<strong>均匀分布</strong> \(\mathcal{U}(0,1)\)。计算机通过伪随机数生成器（如 Mersenne Twister）可以高效地生成近似独立的均匀随机数。有了均匀随机数后，我们可以用各种变换得到想要的分布。
+            </p>
+            <p>
+                最经典的例子是 <strong>Box-Muller 变换</strong>——从两个均匀随机数生成两个独立的标准正态样本。设 \(U_1, U_2 \sim \mathcal{U}(0,1)\) 独立，则：
+            </p>
+            <div>
+                \[
+                \begin{aligned}
+                Z_1 &= \sqrt{-2\ln U_1} \cdot \cos(2\pi U_2) \\
+                Z_2 &= \sqrt{-2\ln U_1} \cdot \sin(2\pi U_2)
+                \end{aligned}
+                \]
+            </div>
+            <p>
+                有 \(Z_1, Z_2 \sim \mathcal{N}(0,1)\) 且独立。其数学本质是二元高斯在极坐标下的面积元变换。Box-Muller 的优雅之处在于：它把"从正态分布抽样"这一看似复杂的问题，转化为了"生成两个均匀随机数 + 算几次初等函数"。
+            </p>
+
+            <h3>2.3 接受-拒绝采样 (Acceptance-Rejection Sampling)</h3>
+            <p>
+                对于更一般的分布 \(p(x)\)，我们不一定能找到类似 Box-Muller 那样的解析变换。接受-拒绝采样提供了一种通用方案。
+            </p>
+            <p>
+                基本思路：找一个容易抽样的<strong>提议分布</strong> \(q(x)\)，满足对某个常数 \(M > 1\)，有：
+            </p>
+            <div>
+                \[
+                p(x) \le M \cdot q(x), \quad \forall x
+                \]
+            </div>
+            <p>
+                即 \(M q(x)\) 是 \(p(x)\) 的一个"上包络"。算法步骤如下：
+            </p>
+            <ol>
+                <li>从提议分布 \(q(x)\) 中抽取候选样本 \(x^*\)。</li>
+                <li>生成均匀随机数 \(u \sim \mathcal{U}(0, 1)\)。</li>
+                <li>如果 \(u \le \dfrac{p(x^*)}{M q(x^*)}\)，则<strong>接受</strong> \(x^*\) 为样本；否则<strong>拒绝</strong>，返回步骤 1。</li>
+            </ol>
+
+            <h3>2.4 接受-拒绝采样的直观解释</h3>
+            <p>
+                想象你在平面画布上：水平轴代表 \(x\)，竖直轴代表密度值。提议分布 \(q(x)\) 被放大 \(M\) 倍后完全"盖住"了目标分布 \(p(x)\)。你在 \(M q(x)\) 曲线下方均匀地撒点——水平坐标来自 \(q(x)\) 的样点，垂直坐标是均匀随机。
+            </p>
+            <p>
+                如果某个点落在了 \(p(x)\) 曲线下方（即 \(u \cdot M q(x) \le p(x)\)），这个点的水平坐标 \(x^*\) 被保留；否则丢弃。保留下来的点的水平分布，恰好就是 \(p(x)\)。
+            </p>
+
+            <h3>2.5 接受-拒绝采样方法有效性证明</h3>
+            <p>
+                我们需要证明：接受条件下的 \(x^*\) 的分布确实是 \(p(x)\)。记接受事件为 \(A\)（即 \(u \le p(x^*)/(M q(x^*)))\)，则：
+            </p>
+            <div>
+                \[
+                \begin{aligned}
+                P(x^* \le t \mid A) &= \frac{P(x^* \le t,\; A)}{P(A)} \\
+                &= \frac{\displaystyle\int_{-\infty}^t q(x) \cdot \frac{p(x)}{M q(x)} \,dx}{\displaystyle\int_{-\infty}^\infty q(x) \cdot \frac{p(x)}{M q(x)} \,dx} \\
+                &= \frac{\displaystyle\frac{1}{M}\int_{-\infty}^t p(x)\,dx}{\displaystyle\frac{1}{M}\int_{-\infty}^\infty p(x)\,dx} = \int_{-\infty}^t p(x)\,dx
+                \end{aligned}
+                \]
+            </div>
+            <p>
+                这正是累积分布函数 \(P(x \le t)\) 的定义，证毕。注意分母 \(\int p(x)dx = 1\) 的假设——如果 \(p(x)\) 未归一化，接受率会变化，但接受后样本的分布仍然是正确的（这正是 MCMC 也用未归一化密度采样的数学根源）。
+            </p>
+            <p>
+                接受率（即 \(P(A)\)）等于 \(1/M\)。\(M\) 越大 → 上包络越宽松 → 接受率越低 → 效率越差。因此选 \(q(x)\) 要紧贴 \(p(x)\) 的形状，\(M\) 取刚好满足包络条件的最小值。
+            </p>
+
+            <h3>2.6 接受-拒绝采样方法 Python 实现</h3>
+            <p>
+                以下用接受-拒绝方法从标准正态分布中采样，提议分布取柯西分布（厚尾，容易包络正态的高峰）：
+            </p>
+<pre><code class="language-python">import numpy as np
+import matplotlib.pyplot as plt
+
+def target_pdf(x):
+    """目标分布：标准正态（未归一化亦可）"""
+    return np.exp(-0.5 * x**2)
+
+def proposal_pdf(x):
+    """提议分布：柯西分布（未归一化）"""
+    return 1.0 / (1.0 + x**2)
+
+# 确定 M：使得 M * q(x) >= p(x) 对所有 x 成立
+# 分析：p(0)/q(0) = 1/1 = 1, 最大值在 x=0 处
+M = 1.0
+
+def acceptance_rejection(n_samples):
+    samples = []
+    n_trials = 0
+    while len(samples) < n_samples:
+        # 从柯西分布抽样：x = tan(pi * (U - 0.5))
+        x_star = np.tan(np.pi * (np.random.rand() - 0.5))
+        u = np.random.rand()
+        n_trials += 1
+        if u <= target_pdf(x_star) / (M * proposal_pdf(x_star)):
+            samples.append(x_star)
+    acceptance_rate = n_samples / n_trials
+    print(f"Acceptance rate: {acceptance_rate:.2%}")
+    return np.array(samples)
+
+samples = acceptance_rejection(10000)
+# 验证：直方图应与标准正态吻合</code></pre>
+
+            <h3>2.7 蒙特卡罗方法小结</h3>
+            <p>
+                蒙特卡罗的本质是<strong>用抽样代替积分</strong>。当目标分布比较简单时，可以通过变换法（如 Box-Muller）或接受-拒绝法高效抽样。但这些方法有一个共同的瓶颈：<strong>在高维空间中，找一个能紧密包络目标分布的提议分布极难</strong>。维度每升高一倍，上包络与目标的体积比通常呈指数增长，接受率急剧下降——这就是所谓的"维度灾难"。要突破这个限制，蒙特卡罗需要与马尔可夫链结合。
+            </p>
+
+            <!-- ==================== 第3章 ==================== -->
+            <h2>3. 马尔可夫链</h2>
+
+            <h3>3.1 马尔可夫链概述</h3>
+            <p>
+                <strong>马尔可夫链（Markov Chain）</strong>是一类特殊的随机过程——给定当前状态，未来的状态与过去的状态<strong>条件独立</strong>。用数学语言：
+            </p>
+            <div>
+                \[
+                P(X_{t+1} = x_{t+1} \mid X_t = x_t, X_{t-1} = x_{t-1}, \ldots, X_0 = x_0) = P(X_{t+1} = x_{t+1} \mid X_t = x_t)
+                \]
+            </div>
+            <p>
+                这一性质被称为<strong>马尔可夫性质</strong>（Markov property），也称"无记忆性"。虽然条件苛刻，但它使我们能用简洁的数学工具——<strong>状态转移矩阵</strong> \(P\)——来完整描述系统的演化。其中 \(P_{ij} = P(X_{t+1} = j \mid X_t = i)\)，表示从状态 \(i\) 一步跳到状态 \(j\) 的概率。
+            </p>
+            <p>
+                日常中的马尔可夫链比比皆是：天气变化（晴→雨的概率）、网页浏览（从一个页面点击跳转到另一个）、股票价格简化模型…… 甚至你打字的输入法联想，背后也往往是一个隐马尔可夫模型。
+            </p>
+
+            <h3>3.2 马尔可夫链模型状态转移矩阵的性质</h3>
+            <p>
+                状态转移矩阵 \(P\) 是一个<strong>随机矩阵</strong>：每行元素非负，且每行之和为 1（\(\sum_j P_{ij} = 1\)）。从初始分布 \(\pi^{(0)}\)（一个行向量）出发，第 \(t\) 步后的状态分布为：
+            </p>
+            <div>
+                \[
+                \pi^{(t)} = \pi^{(0)} P^t
+                \]
+            </div>
+            <p>
+                在某些条件下（不可约 + 非周期 + 正常返），当 \(t \to \infty\) 时，\(\pi^{(t)}\) 会收敛到一个唯一的<strong>平稳分布</strong> \(\pi\)，满足：
+            </p>
+            <div>
+                \[
+                \pi = \pi P
+                \]
+            </div>
+            <p>
+                这被称为<strong>平稳分布方程</strong>，它意味着一旦链到达 \(\pi\)，它将"留在" \(\pi\) 上——分布不再随时间变化。\(\pi\) 正是 \(P\) 的特征值为 1 对应的左特征向量。
+            </p>
+            <p>
+                MCMC 的核心洞见就在于此：<strong>如果我们能让目标分布 \(p(x)\) 成为某个马尔可夫链的平稳分布，那么只要让链跑足够久，收集到的状态就近似是从 \(p(x)\) 中抽取的样本。</strong>
+            </p>
+
+            <h3>3.3 基于马尔可夫链采样</h3>
+            <p>
+                假设我们设计好了转移矩阵 \(P\) 使得目标分布 \(\pi = p(\cdot)\) 是其平稳分布。采样过程为：
+            </p>
+            <ol>
+                <li>从任意初始状态 \(x_0\) 出发。</li>
+                <li>反复按 \(P\) 转移：\(x_1 \to x_2 \to \cdots \to x_n\)。</li>
+                <li>丢弃前面的"磨合期"样本（burn-in），保留成熟期样本 \(\{x_{m}, x_{m+1}, \ldots, x_n\}\)。</li>
+                <li>用这些样本估计统计量。</li>
+            </ol>
+            <p>
+                实际中我们通常不知道 \(t\) 多大算"足够大"，因此需要诊断工具（如多链 \(\hat{R}\)、自相关分析）来判断链是否已经"混合"到了平稳区。
+            </p>
+
+            <h3>3.4 马尔可夫链采样小结</h3>
+            <p>
+                马尔可夫链给出了在高维空间中"游走采样"的理论框架。与独立采样（如接受-拒绝）不同，马尔可夫链采样的相邻样本之间存在<strong>自相关</strong>——这是一个代价。但换来的好处是：<strong>我们不需要知道目标分布的全局形状，只需要知道任意两点间的相对概率密度。</strong>这在高维场景中是革命性的。
+            </p>
+
+            <h3>3.5 补充：PageRank — Google 的民主表决式网页排名技术</h3>
+            <p>
+                马尔可夫链有一个经典应用：Google 的 PageRank 算法。将整个互联网看作一个巨大的马尔可夫链——每个网页是一个状态，页面之间的超链接就是转移概率。一个"随机冲浪者"以概率 \(d\) 沿着当前页面的链接随机点击，以概率 \(1-d\) 随机跳转到一个全新页面。这个随机过程的平稳分布 \(\pi\) 就是 PageRank 值——\(\pi_i\) 越大，说明随机冲浪者越常停留在页面 \(i\)，即该页面越"重要"。
+            </p>
+            <p>
+                数学上，PageRank 的转移矩阵写作 \(G = d \cdot H + (1-d) \cdot E\)，其中 \(H\) 是超链接转移矩阵（行归一化），\(E\) 是均匀跳转矩阵。平稳分布 \(\pi = \pi G\) 可以通过幂迭代（power iteration）高效求解，这正是 Google 早期搜索排序的核心技术。PageRank 完美阐释了马尔可夫链平稳分布在真实世界中的力量：数十亿网页的重要性排序，只需不断迭代一个随机矩阵乘法即可收敛。
+            </p>
+
+            <!-- ==================== 第4章 ==================== -->
+            <h2>4. 马尔可夫链蒙特卡罗算法</h2>
+
+            <h3>4.1 马尔科夫链的细致平稳条件 (Detailed Balance Condition)</h3>
+            <p>
+                设计 MCMC 算法的核心问题是：给定目标分布 \(\pi\)，如何构造转移矩阵 \(P\) 使得 \(\pi\) 是其平稳分布？<strong>细致平稳条件</strong>（Detailed Balance）给出了一个充分（但不必要）的构造准则：
+            </p>
+            <div>
+                \[
+                \pi_i \, P_{ij} = \pi_j \, P_{ji}, \quad \forall i, j
+                \]
+            </div>
+            <p>
+                直观含义：从状态 \(i\) 流向 \(j\) 的概率质量，恰好等于从 \(j\) 流回 \(i\) 的——就像热力学平衡中的"每一条微观路径正反通量相等"，它保证了全局概率分布的稳定性。
+            </p>
+            <p>
+                对两边求和 \(\sum_i\) 可得 \(\sum_i \pi_i P_{ij} = \pi_j \sum_i P_{ji} = \pi_j\)，即 \(\pi = \pi P\)——细致平稳是平稳分布的充分条件。MCMC 的所有主流算法（M-H、Gibbs 等）本质上都是在<strong>强制满足细致平稳条件</strong>的前提下构造转移核。
+            </p>
+
+            <h3>4.2 MCMC 采样</h3>
+            <p>
+                在连续状态空间中，细致平稳条件推广为：
+            </p>
+            <div>
+                \[
+                \pi(x) \, T(x \to x') = \pi(x') \, T(x' \to x)
+                \]
+            </div>
+            <p>
+                其中 \(T(x \to x')\) 是从 \(x\) 转移到 \(x'\) 的转移密度（transition kernel）。
+            </p>
+            <p>
+                通常我们随意选一个提议分布 \(q(x' \mid x)\)（如高斯跳转），它本身不满足细致平稳——\(\pi(x) q(x' \mid x) \neq \pi(x') q(x \mid x')\)。MCMC 的策略是引入一个<strong>接受概率</strong> \(\alpha(x, x')\)，将转移核设为：
+            </p>
+            <div>
+                \[
+                T(x \to x') = q(x' \mid x) \cdot \alpha(x, x')
+                \]
+            </div>
+            <p>
+                然后通过选择合适的 \(\alpha\) 来"修正"转移核以强制满足细致平稳。这正是 M-H 算法和 Gibbs 采样的共同设计哲学。下一章将具体展开。
+            </p>
+
+            <!-- ==================== 第5章 ==================== -->
+            <h2>5. M-H 采样</h2>
+
+            <h3>5.1 M-H 采样算法</h3>
+            <p>
+                Metropolis (1953) 提出、Hastings (1970) 推广的算法是 MCMC 的奠基之作。将转移核设为两步：先提议、再接受/拒绝。令接受概率为：
+            </p>
+            <div>
+                \[
+                \alpha(x, x') = \min\!\left(1, \frac{\pi(x') \, q(x \mid x')}{\pi(x) \, q(x' \mid x)}\right)
+                \]
+            </div>
+            <p>
+                则我们验证细致平稳：
+            </p>
+            <div>
+                \[
+                \begin{aligned}
+                \pi(x) \cdot q(x' \mid x) \cdot \alpha(x, x')
+                &= \pi(x) q(x' \mid x) \cdot \min\!\left(1, \frac{\pi(x') q(x \mid x')}{\pi(x) q(x' \mid x)}\right) \\
+                &= \min\!\bigl(\pi(x) q(x' \mid x),\; \pi(x') q(x \mid x')\bigr)
+                \end{aligned}
+                \]
+            </div>
+            <p>
+                这个表达式关于 \(x\) 和 \(x'\) 是对称的——min 运算将不对称的两者化为对称的最小值，从而满足细致平稳。这就是 M-H 接受概率的推导出发点。
+            </p>
+            <p>
+                完整算法：
+            </p>
+            <ol>
+                <li>初始化 \(x_0\)。</li>
+                <li>对 \(t = 0, 1, 2, \ldots\)：
+                    <ul>
+                        <li>从提议分布 \(q(x' \mid x_t)\) 生成候选 \(x'\)。</li>
+                        <li>计算 \(\alpha = \min\!\left(1, \dfrac{\pi(x') q(x_t \mid x')}{\pi(x_t) q(x' \mid x_t)}\right)\)。</li>
+                        <li>以概率 \(\alpha\) 接受：\(x_{t+1} = x'\)；否则 \(x_{t+1} = x_t\)。</li>
+                    </ul>
+                </li>
+                <li>收集收敛后的样本。</li>
+            </ol>
+            <p>
+                如果提议分布是对称的（如高斯：\(q(x' \mid x) = \mathcal{N}(x' \mid x, \Sigma)\)），则 \(q(x_t \mid x') = q(x' \mid x_t)\)，接受概率简化为经典的 Metropolis 判据：
+            </p>
+            <div>
+                \[
+                \alpha = \min\!\left(1, \frac{\pi(x')}{\pi(x_t)}\right)
+                \]
+            </div>
+
+            <h3>5.2 M-H 采样 Python 实现</h3>
+<pre><code class="language-python">import numpy as np
+
+def target_logp(x):
+    """目标分布的对数密度：混合高斯（双峰）"""
+    return np.log(
+        0.3 * np.exp(-0.5 * ((x - 2) / 0.5)**2) +
+        0.7 * np.exp(-0.5 * ((x + 2) / 1.0)**2)
+    )
+
+def metropolis_hastings(n_steps, x0, step_size):
+    """Metropolis-Hastings 采样器（对称高斯提议）"""
+    chain = np.zeros(n_steps)
+    chain[0] = x0
+    logp_cur = target_logp(x0)
+    n_accept = 0
+
+    for t in range(1, n_steps):
+        x_prop = chain[t-1] + np.random.normal(0, step_size)
+        logp_prop = target_logp(x_prop)
+
+        # Metropolis 判据（对称提议）
+        if np.log(np.random.rand()) < logp_prop - logp_cur:
+            chain[t] = x_prop
+            logp_cur = logp_prop
+            n_accept += 1
+        else:
+            chain[t] = chain[t-1]
+
+    print(f"Acceptance rate: {n_accept/n_steps:.1%}")
+    return chain
+
+# 运行
+np.random.seed(42)
+chain = metropolis_hastings(n_steps=20000, x0=0.0, step_size=1.5)
+samples = chain[5000:]  # 丢弃 burn-in
+print(f"Mean: {samples.mean():.3f}, Std: {samples.std():.3f}")</code></pre>
+
+            <h3>5.3 M-H 采样小结</h3>
+            <p>
+                M-H 的优势在于<strong>普适性</strong>——几乎任何连续分布都可以用高斯提议 + Metropolis 判据来采样。它的缺陷也很明显：(1) 提议步长需要手动调节（太小则混合慢，太大则接受率低）；(2) 各维度用同一协方差时，对拉长的后验分布效率低下；(3) 高维时拒绝率急剧升高。后文介绍的 Gibbs 采样在某些结构中能规避这些问题。
+            </p>
+
+            <!-- ==================== 第6章 ==================== -->
+            <h2>6. Gibbs 采样</h2>
+
+            <h3>6.1 重新寻找合适的细致平稳条件</h3>
+            <p>
+                M-H 每次在<strong>全维度联合空间</strong>中提议新点——高维空间中大部分方向是概率极低的区域，导致高拒绝率。Gibbs 采样（Geman &amp; Geman, 1984）换了一个思路：<strong>逐维度地、从该维度的条件分布中精确抽样</strong>。
+            </p>
+            <p>
+                设参数 \(\theta = (\theta_1, \theta_2, \ldots, \theta_d)\)，Gibbs 采样每一步只更新一个分量 \(\theta_k\)，新值从条件分布 \(P(\theta_k \mid \theta_{-k})\) 中精确抽取。可以证明这样的<strong>逐分量精确抽样自然满足细致平稳</strong>——因为对于分量 \(\theta_k\) 的更新，接受概率恒为 1，而条件分布的归一化保证了概率质量守恒。
+            </p>
+
+            <h3>6.2 二维 Gibbs 采样</h3>
+            <p>
+                在二维参数空间 \((\theta_1, \theta_2)\) 中，Gibbs 采样在第 \(t\) 步执行：
+            </p>
+            <div>
+                \[
+                \begin{aligned}
+                \theta_1^{(t+1)} &\sim P(\theta_1 \mid \theta_2^{(t)}) \\
+                \theta_2^{(t+1)} &\sim P(\theta_2 \mid \theta_1^{(t+1)})
+                \end{aligned}
+                \]
+            </div>
+            <p>
+                注意：更新 \(\theta_2\) 时使用的是<strong>刚刚更新过</strong>的 \(\theta_1^{(t+1)}\)——这是 Gibbs 的关键细节（称为 systematic scan）。链的移动轨迹在参数空间中呈现"曼哈顿式"的垂直-水平交替——每一步沿一个坐标轴移动到该维度条件分布的随机抽样位置。因为每次都精确从条件分布抽取，Gibbs 采样<strong>没有拒绝步骤</strong>，每一步都是有效移动。
+            </p>
+
+            <h3>6.3 多维 Gibbs 采样</h3>
+            <p>
+                推广到 \(d\) 维：
+            </p>
+            <div>
+                \[
+                \begin{aligned}
+                \theta_1^{(t+1)} &\sim P(\theta_1 \mid \theta_2^{(t)}, \theta_3^{(t)}, \ldots, \theta_d^{(t)}) \\
+                \theta_2^{(t+1)} &\sim P(\theta_2 \mid \theta_1^{(t+1)}, \theta_3^{(t)}, \ldots, \theta_d^{(t)}) \\
+                &\;\;\vdots \\
+                \theta_d^{(t+1)} &\sim P(\theta_d \mid \theta_1^{(t+1)}, \theta_2^{(t+1)}, \ldots, \theta_{d-1}^{(t+1)})
+                \end{aligned}
+                \]
+            </div>
+            <p>
+                每一轮完成所有 \(d\) 个分量的更新算作一个完整的 Gibbs 步。Gibbs 在两类问题中尤其高效：
+            </p>
+            <ul>
+                <li><strong>共轭先验模型：</strong>条件分布有闭式解，可用标准分布直接抽样。</li>
+                <li><strong>隐变量模型：</strong>如高斯混合模型（GMM），给定组分标签后各参数的后验条件分布都是标准形式。</li>
+            </ul>
+            <p>
+                当某些分量的条件分布无法直接抽样时，可对该分量单独使用一次 M-H（"Metropolis-within-Gibbs"），形成混合策略。
+            </p>
+
+            <h3>6.4 二维 Gibbs 采样 Python 实现</h3>
+            <p>
+                以二维高斯分布为目标，展示 Gibbs 采样的完整 Python 实现：
+            </p>
+<pre><code class="language-python">import numpy as np
+
+def gibbs_sampler_2d(n_steps, rho=0.8):
+    """
+    对二维高斯进行 Gibbs 采样：
+    x ~ N(0, 1),  y|x ~ N(rho*x, 1 - rho^2)
+    """
+    chain = np.zeros((n_steps, 2))
+    x, y = 0.0, 0.0
+    chain[0] = [x, y]
+
+    for t in range(1, n_steps):
+        # 更新 x：条件分布 x|y ~ N(rho*y, 1 - rho^2)
+        x = np.random.normal(rho * y, np.sqrt(1 - rho**2))
+        # 更新 y：条件分布 y|x ~ N(rho*x, 1 - rho^2)
+        y = np.random.normal(rho * x, np.sqrt(1 - rho**2))
+        chain[t] = [x, y]
+
+    return chain
+
+# 运行并验证
+chain = gibbs_sampler_2d(10000, rho=0.8)
+samples = chain[1000:]  # burn-in
+print(f"Covariance:\n{np.cov(samples.T)}")
+# 理论协方差：[[1, 0.8], [0.8, 1]]</code></pre>
+            <p>
+                此例中，联合分布 \((x,y)\) 是二元高斯，协方差为 \(\begin{pmatrix}1 &amp; \rho \\ \rho &amp; 1\end{pmatrix}\)。条件分布 \(x \mid y\) 和 \(y \mid x\) 恰好都是单变量高斯，可以直接精确抽样——每一步的更新都 100% 被接受。
+            </p>
+            <p>
+                当 \(\rho\) 接近 1（强相关）时，Gibbs 的"曼哈顿"移动方式效率会下降——每一步只能沿坐标轴走一小步，要遍历整个拉长的椭圆需要很多步。这种情况下，集成采样（emcee）或 HMC 可能更高效。但对 \(\rho \lesssim 0.9\) 的温和相关问题，Gibbs 的表现通常足够好。
+            </p>
+
+            <h3>6.5 Gibbs 采样小结</h3>
+            <p>
+                Gibbs 采样的核心优势是<strong>零拒绝率</strong>——每一步都在移动，没有"原地踏步"的浪费。但这建立在<strong>条件分布可精确抽样</strong>的前提上。在贝叶斯层次模型中这个前提常常被满足（共轭设计），使得 Gibbs 成为 BUGS、JAGS 等专用软件的核心引擎。对于条件分布不可得的一般情形，仍需退回到 M-H 或其变体。
+            </p>
+            <p>
+                从蒙特卡罗的独立采样，到马尔可夫链的平稳分布理论，再到 M-H 和 Gibbs 的具体构造——MCMC 这一数学工具链已经完整展现在我们面前。无论是物理参数估计、机器学习中的隐变量推断，还是金融风险建模，MCMC 都在无声地运转着。理解其原理，远比会调包更重要。
+            </p>
+            
+            <p>
+                <a class="back-button" href="_AstronomyMenu.html">Back to Astronomy Articles</a>
+            </p>
+        </article>
+
+        <!-- 右侧边栏 -->
+        <aside class="right-sidebar">
+            <!-- Search 模块 -->
+            <div class="search-container">
+                <h3>Search</h3>
+                <div class="search">
+                    <form action="../../SearchResultsPage.html" method="GET" id="search-form">
+                        <!-- 搜索选项 -->
+                        <div class="search-options">
+                            <label class="search-option">
+                                <input type="radio" name="searchType" value="title" checked>
+                                <span>Title</span>
+                            </label>
+                            <label class="search-option">
+                                <input type="radio" name="searchType" value="tags">
+                                <span>Tags</span>
+                            </label>
+                            <label class="search-option">
+                                <input type="radio" name="searchType" value="content">
+                                <span>Content</span>
+                            </label>
+                        </div>
+                        <div class="search-input-group">
+                            <input type="text" name="search" id="search-input" placeholder="Search articles..." />
+                            <button type="submit">Search</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+            <!-- Tags 模块 -->
+            <div class="tags">
+                <h3 class="tags-header">
+                    Tags
+                </h3>
+                <ul class="tags-list"></ul>
+            </div>
+        </aside>
+    </div>
+
+    <!-- Footer Section -->
+    <footer>
+        <div class="footer-content">
+            <div class="contact-links">
+                <a href="https://space.bilibili.com/7366309?spm_id_from=333.1007.0.0" target="_blank" rel="noopener noreferrer">
+                    <i class="fas fa-play-circle"></i> Bilibili
+                </a>
+                <a href="https://github.com/ddddddsad?tab=repositories" target="_blank" rel="noopener noreferrer">
+                    <i class="fab fa-github"></i> GitHub
+                </a>
+                <a href="mailto:donhaozhe@gmail.com">
+                    <i class="fas fa-envelope"></i> Gmail
+                </a>
+            </div>
+            <p>&copy; 2024 Personal Blog. All rights reserved.</p>
+        </div>
+    </footer>
+
+    <!-- 引入独立的 JS 文件 -->
+    <script src="../../js/api.js"></script>
+    <script src="../../js/ui-mode.js"></script>
+    <script src="../../js/theme-toggle.js"></script>
+    <script src="../../js/script.js"></script>
+    <script src="../../js/search.js"></script>
+    <script src="../../js/recent-articles.js"></script>
+    <script src="../../js/tags.js"></script>
+    <script src="../../js/article-navigation.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/MathJax.js?config=TeX-AMS_HTML" async></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/highlight.min.js"></script>
+    <script>
+        hljs.highlightAll();
+    </script>
+</body>
+</html>
